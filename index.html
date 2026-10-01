@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEAM ETERNITY // TAL IBAN - DOESNTFLICKANYMORE</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Google Fonts: Orbitron, Syncopate, Rajdhani, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&family=Syncopate:wght@700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            voidDark: '#030206',
+            deepBlack: '#07050b',
+            deckSurface: '#0d0a14',
+            deckSurfaceHigh: '#151020',
+            neonCrimson: '#ff003c',
+            plasmaCyan: '#00f0ff',
+            electricViolet: '#a855f7',
+            holoGreen: '#10b981',
+            amberGold: '#f59e0b',
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            sync: ['Syncopate', 'sans-serif'],
+            rajdhani: ['Rajdhani', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          boxShadow: {
+            crimsonGlow: '0 0 35px rgba(255, 0, 60, 0.5)',
+            cyanGlow: '0 0 35px rgba(0, 240, 255, 0.5)',
+            purpleGlow: '0 0 35px rgba(168, 85, 247, 0.5)',
+            goldGlow: '0 0 35px rgba(245, 158, 11, 0.45)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #030206;
+      color: #e2e8f0;
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* CRT Holographic Scanline Overlay */
+    .holo-scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 240, 255, 0.035) 50%,
+        rgba(0, 240, 255, 0.035)
+      );
+      background-size: 100% 4px;
+    }
+
+    /* Cyberdeck Glassmorphism */
+    .glass-deck {
+      background: rgba(13, 10, 20, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+    .glass-deck:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+    }
+
+    /* Tactical HUD Glitch */
+    .glitch-text {
+      position: relative;
+    }
+    .glitch-text:hover::before,
+    .glitch-text:hover::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip: rect(0, 0, 0, 0);
+    }
+    .glitch-text:hover::before {
+      left: -2px;
+      text-shadow: 2px 0 #ff003c;
+      animation: glitch-anim-1 0.35s infinite linear alternate-reverse;
+    }
+    .glitch-text:hover::after {
+      left: 2px;
+      text-shadow: -2px 0 #00f0ff;
+      animation: glitch-anim-2 0.35s infinite linear alternate-reverse;
+    }
+    @keyframes glitch-anim-1 {
+      0% { clip: rect(10px, 9999px, 30px, 0); }
+      50% { clip: rect(55px, 9999px, 85px, 0); }
+      100% { clip: rect(20px, 9999px, 45px, 0); }
+    }
+    @keyframes glitch-anim-2 {
+      0% { clip: rect(65px, 9999px, 95px, 0); }
+      50% { clip: rect(15px, 9999px, 40px, 0); }
+      100% { clip: rect(40px, 9999px, 70px, 0); }
+    }
+
+    /* Beveled Cyber Cut Corners */
+    .clip-corner {
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    }
+    .clip-corner-sm {
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
+
+    /* Radar Sonar Pulse */
+    @keyframes radarBeam {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .radar-sweep {
+      animation: radarBeam 4s linear infinite;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030206;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ff003c;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00f0ff;
+    }
+  </style>
+</head>
+<body class="relative selection:bg-neonCrimson selection:text-white">
+
+  <!-- Interactive Fullscreen WebGL/Canvas Animation Engine -->
+  <canvas id="cyberCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Ambient Holographic Nebula Lights -->
+  <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-neonCrimson/10 rounded-full blur-[180px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-0 right-1/4 w-[650px] h-[650px] bg-plasmaCyan/10 rounded-full blur-[190px] pointer-events-none z-0"></div>
+  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-electricViolet/10 rounded-full blur-[170px] pointer-events-none z-0"></div>
+
+  <!-- Scanline CRT Overlay -->
+  <div class="fixed inset-0 holo-scanlines pointer-events-none z-30 opacity-40"></div>
+
+  <!-- Interactive Tactical Crosshair HUD Follower -->
+  <div id="tacticalCrosshair" class="fixed pointer-events-none z-40 transition-transform duration-75 ease-out -translate-x-1/2 -translate-y-1/2 hidden md:block">
+    <div class="w-8 h-8 rounded-full border border-plasmaCyan/40 flex items-center justify-center">
+      <div class="w-1.5 h-1.5 rounded-full bg-neonCrimson animate-ping"></div>
+    </div>
+    <div class="text-[9px] font-mono text-plasmaCyan/70 tracking-widest pl-5 -mt-3 whitespace-nowrap">
+      GRID: <span id="mouseCoords">000 : 000</span>
+    </div>
+  </div>
+
+  <!-- Top Tactical OS Ribbon -->
+  <header class="relative z-40 bg-voidDark/95 border-b border-white/10 px-4 sm:px-8 py-2.5 backdrop-blur-xl flex flex-wrap justify-between items-center text-xs font-mono">
+    <div class="flex items-center gap-3 sm:gap-6">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-neonCrimson animate-ping"></span>
+        <span class="font-sync font-bold text-white tracking-widest text-xs">TEAM ETERNITY</span>
+      </div>
+      <span class="text-slate-600 hidden sm:inline">|</span>
+      <span class="text-plasmaCyan font-bold tracking-wider hidden sm:flex items-center gap-1.5">
+        <i class="fa-solid fa-satellite-dish animate-pulse text-neonCrimson"></i>
+        <span>NODE: ASIA // GLOBAL LEADERBOARD</span>
+      </span>
+      <span class="text-slate-600 hidden md:inline">|</span>
+      <span class="text-amberGold hidden md:inline">
+        LATENCY: <span id="pingValue" class="text-holoGreen font-bold">14ms</span>
+      </span>
+      <span class="text-slate-600 hidden lg:inline">|</span>
+      <span class="text-slate-400 hidden lg:inline">
+        CALLSIGN: <span class="text-white font-bold tracking-wider">DOESNTFLICKANYMORE</span>
+      </span>
+    </div>
+
+    <!-- Synth & Tactical Sound Controls -->
+    <div class="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-0">
+      <!-- Synth Audio Selector Dropdown / Button -->
+      <div class="flex items-center rounded-lg bg-deckSurface border border-electricViolet/40 overflow-hidden">
+        <button onclick="toggleAmbientAudio()" id="ambientBtn" class="flex items-center gap-2 px-3 py-1.5 text-[11px] text-slate-300 hover:text-white transition">
+          <div class="flex items-end gap-0.5 h-3.5 w-4" id="eqBars">
+            <span class="w-1 bg-neonCrimson rounded-full h-1 transition-all"></span>
+            <span class="w-1 bg-plasmaCyan rounded-full h-1 transition-all"></span>
+            <span class="w-1 bg-electricViolet rounded-full h-1 transition-all"></span>
+            <span class="w-1 bg-holoGreen rounded-full h-1 transition-all"></span>
+          </div>
+          <span id="ambientLabel">SOOTHING SYNTH: OFF</span>
+        </button>
+        <button onclick="cycleSynthPreset()" title="Switch Soundscape Theme" class="px-2 py-1.5 bg-white/5 hover:bg-white/10 text-plasmaCyan border-l border-white/10 text-xs">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+      </div>
+
+      <!-- Quick SFX Toggle -->
+      <button onclick="toggleSfx()" id="sfxToggleBtn" class="px-2.5 py-1.5 rounded-lg bg-deckSurface border border-white/15 hover:border-neonCrimson text-[11px] text-slate-300 transition" title="Toggle SFX">
+        <i class="fa-solid fa-volume-high text-neonCrimson" id="sfxIcon"></i>
+      </button>
+
+      <!-- Guns.lol Badge Link -->
+      <a href="https://guns.lol/swiiiiift" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/15 hover:border-plasmaCyan text-white text-[11px] transition">
+        <i class="fa-solid fa-link text-plasmaCyan"></i> guns.lol/swiiiiift
+      </a>
+    </div>
+  </header>
+
+  <main class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+    <!-- HERO SECTION: Primary Operator Identity & Quick-Scope Aim Terminal -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+      <!-- Left Column: Operator Identity & Dossier -->
+      <section class="lg:col-span-6 glass-deck rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-neonCrimson/40 shadow-crimsonGlow flex flex-col justify-between clip-corner">
+        
+        <!-- Header Tag Ribbon -->
+        <div class="flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400 border-b border-white/10 pb-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded bg-neonCrimson/20 border border-neonCrimson text-neonCrimson font-bold uppercase tracking-wider">
+              <i class="fa-solid fa-shield mr-1"></i> TASK FORCE 141
+            </span>
+            <span class="px-2.5 py-0.5 rounded bg-plasmaCyan/20 border border-plasmaCyan text-plasmaCyan font-bold uppercase tracking-wider">
+              ASIA REGION // S&amp;D
+            </span>
+          </div>
+          <div class="text-right">
+            <span class="text-slate-500">OPERATOR:</span> <span class="text-white font-bold">GHOST SPEC-OPS</span>
+          </div>
+        </div>
+
+        <!-- Name & Bio -->
+        <div class="py-5 space-y-2.5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-slate-300">
+            <span class="w-2 h-2 rounded-full bg-holoGreen animate-pulse"></span>
+            <span>CODM &bull; ROBLOX CLUTCH OPERATOR</span>
+          </div>
+          
+          <h1 class="text-4xl sm:text-6xl font-sync font-black text-white tracking-tight uppercase glitch-text" data-text="TAL IBAN">
+            TAL <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonCrimson via-electricViolet to-plasmaCyan">IBAN</span>
+          </h1>
+          
+          <p class="font-mono text-xs sm:text-sm text-plasmaCyan tracking-widest uppercase flex items-center gap-2">
+            <span>CALLSIGN: DOESNTFLICKANYMORE</span>
+            <span class="text-slate-600">//</span>
+            <span class="text-electricViolet">TEAM ETERNITY</span>
+          </p>
+
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border-l-4 border-neonCrimson font-mono text-xs text-slate-300 italic flex items-center justify-between">
+            <span>“Just another day at the office.”</span>
+            <button onclick="playGhostAudioQuote()" class="text-neonCrimson hover:text-white px-2 py-1 bg-neonCrimson/10 rounded transition text-[11px]" title="Play Quote Audio">
+              <i class="fa-solid fa-volume-high mr-1"></i> PLAY QUOTE
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive 3D Holographic Poster Container (18247.png) -->
+        <div class="relative group my-3 overflow-hidden rounded-xl border border-white/15 bg-black/70 aspect-[16/9] flex items-center justify-center cursor-pointer shadow-lg" onclick="openLightbox('18247.png')">
+          <img 
+            id="heroImg18247"
+            src="18247.png" 
+            alt="Ghost Operator - Team Eternity Tal iban"
+            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            onerror="handleImageFallback(this, ['18247.png', '18247.jpg', '18245.png'])"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-voidDark via-transparent to-transparent"></div>
+          
+          <!-- Scan sweep highlight on hover -->
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-plasmaCyan/10 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 pointer-events-none"></div>
+
+          <div class="absolute bottom-3 left-4 right-4 flex justify-between items-end">
+            <div>
+              <span class="text-[10px] font-mono text-neonCrimson font-bold block tracking-wider">PRIMARY OPERATOR PROFILE</span>
+              <span class="text-xs font-sync text-white font-bold tracking-wider">DOESNTFLICKANYMORE // 18247</span>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-black/80 hover:bg-neonCrimson border border-white/20 text-white font-mono text-[10px] transition">
+              <i class="fa-solid fa-expand mr-1"></i> FULLSCREEN
+            </span>
+          </div>
+        </div>
+
+        <!-- Quick Action Commands -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-white/10 font-mono text-xs">
+          <button onclick="copyData('7105665127022067713', 'CODM UID COPIED TO CLIPBOARD')" class="flex flex-col items-start p-2.5 rounded-lg bg-voidDark/80 border border-white/10 hover:border-plasmaCyan transition group">
+            <span class="text-[10px] text-slate-500 uppercase">CODM UID</span>
+            <span class="text-white font-bold truncate w-full flex items-center justify-between">
+              <span>...2067713</span>
+              <i class="fa-regular fa-copy text-plasmaCyan group-hover:scale-110 transition"></i>
+            </span>
+          </button>
+
+          <button onclick="copyData('Tal iban', 'IGN COPIED')" class="flex flex-col items-start p-2.5 rounded-lg bg-voidDark/80 border border-white/10 hover:border-neonCrimson transition group">
+            <span class="text-[10px] text-slate-500 uppercase">IN-GAME NAME</span>
+            <span class="text-white font-bold truncate w-full flex items-center justify-between">
+              <span>Tal iban</span>
+              <i class="fa-regular fa-copy text-neonCrimson group-hover:scale-110 transition"></i>
+            </span>
+          </button>
+
+          <a href="https://discord.gg/jgyBJEmZ2" target="_blank" rel="noopener noreferrer" class="flex flex-col items-start p-2.5 rounded-lg bg-voidDark/80 border border-white/10 hover:border-electricViolet transition group">
+            <span class="text-[10px] text-slate-500 uppercase">SQUAD FREQUENCY</span>
+            <span class="text-white font-bold truncate w-full flex items-center justify-between">
+              <span>DISCORD SQUAD</span>
+              <i class="fa-brands fa-discord text-electricViolet group-hover:scale-110 transition"></i>
+            </span>
+          </a>
+        </div>
+
+      </section>
+
+      <!-- Right Column: Quick-Scope Sniper Recon Simulator -->
+      <section class="lg:col-span-6 glass-deck rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-plasmaCyan/50 shadow-cyanGlow flex flex-col justify-between clip-corner">
+        
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <div>
+            <span class="text-[10px] font-mono text-plasmaCyan font-bold tracking-widest block uppercase">TACTICAL RECON DRILL</span>
+            <h2 class="text-xl font-sync font-bold text-white uppercase">SNIPER AIM LAB // REFLEX DRILL</h2>
+          </div>
+          <div class="font-mono text-xs text-right">
+            <span class="text-slate-400 block">SCORE: <span id="gameScore" class="text-neonCrimson font-bold text-lg">0</span></span>
+            <span class="text-slate-500 text-[10px]">TIME LEFT: <span id="gameTimer" class="text-plasmaCyan font-bold">15.0s</span></span>
+          </div>
+        </div>
+
+        <!-- Aim Lab Interactive Arena -->
+        <div class="relative my-4 flex-grow min-h-[300px] rounded-xl border border-white/10 bg-black/90 overflow-hidden select-none cursor-crosshair" id="aimBox">
+          
+          <!-- Background Grid inside Arena -->
+          <div class="absolute inset-0 bg-[radial-gradient(#00f0ff15_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+
+          <!-- Radar Scanner Lines -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border border-plasmaCyan/10 pointer-events-none">
+            <div class="w-full h-full rounded-full border-t border-plasmaCyan/30 radar-sweep"></div>
+          </div>
+
+          <div id="gameOverlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center bg-black/85 backdrop-blur-sm">
+            <i class="fa-solid fa-crosshairs text-4xl text-neonCrimson mb-3 animate-pulse"></i>
+            <h3 class="text-lg font-sync font-bold text-white uppercase">FLICK &amp; REACTION CALIBRATION</h3>
+            <p class="font-mono text-xs text-slate-400 max-w-sm mt-1 mb-5">
+              Click the target markers as fast as possible. Tuned for DL Q33 &amp; Locus quick-scope snipers in Team Eternity scrims.
+            </p>
+            <button onclick="startAimGame()" class="px-7 py-3 rounded-lg bg-neonCrimson hover:bg-red-600 text-white font-sync text-xs font-bold tracking-wider transition transform hover:scale-105 shadow-crimsonGlow flex items-center gap-2">
+              <i class="fa-solid fa-play"></i> ENGAGE SNIPER DRILL
+            </button>
+          </div>
+
+          <!-- Target Puck with Ripple Animation -->
+          <div id="targetMarker" onclick="hitTarget(event)" class="absolute hidden w-12 h-12 -ml-6 -mt-6 rounded-full border-2 border-plasmaCyan bg-neonCrimson/40 cursor-crosshair flex items-center justify-center transition-all duration-75 shadow-cyanGlow">
+            <div class="w-3 h-3 rounded-full bg-white animate-ping"></div>
+          </div>
+        </div>
+
+        <div class="pt-2 font-mono text-xs text-slate-400 flex flex-wrap justify-between items-center gap-2 border-t border-white/10">
+          <span class="flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-holoGreen"></i>
+            <span>DL Q33 / LOCUS ADS TUNED (310ms)</span>
+          </span>
+          <span class="text-slate-500">HIT TARGETS &bull; SCORE +100 PTS</span>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- COMBAT TELEMETRY STATS MATRIX -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+      <div class="glass-deck p-5 rounded-xl border border-white/10 hover:border-neonCrimson transition group">
+        <div class="text-[10px] text-slate-500 uppercase tracking-widest flex items-center justify-between">
+          <span>SEARCH &amp; DESTROY CLUTCH</span>
+          <i class="fa-solid fa-bomb text-neonCrimson group-hover:scale-125 transition"></i>
+        </div>
+        <div class="text-3xl font-sync font-bold text-white mt-1.5">94.2%</div>
+        <p class="text-xs text-slate-400 mt-1">1vX round conversion efficiency in Asia scrims</p>
+      </div>
+
+      <div class="glass-deck p-5 rounded-xl border border-white/10 hover:border-plasmaCyan transition group">
+        <div class="text-[10px] text-slate-500 uppercase tracking-widest flex items-center justify-between">
+          <span>SNIPER HEADSHOT RATIO</span>
+          <i class="fa-solid fa-crosshairs text-plasmaCyan group-hover:scale-125 transition"></i>
+        </div>
+        <div class="text-3xl font-sync font-bold text-white mt-1.5">68.4%</div>
+        <p class="text-xs text-slate-400 mt-1">DL Q33 &amp; Locus fast flick precision rating</p>
+      </div>
+
+      <div class="glass-deck p-5 rounded-xl border border-white/10 hover:border-electricViolet transition group">
+        <div class="text-[10px] text-slate-500 uppercase tracking-widest flex items-center justify-between">
+          <span>ROBLOX COMPETITIVE</span>
+          <i class="fa-solid fa-cube text-electricViolet group-hover:scale-125 transition"></i>
+        </div>
+        <div class="text-3xl font-sync font-bold text-white mt-1.5">MAX TIER</div>
+        <p class="text-xs text-slate-400 mt-1">Blox Fruits Bounty Hunter &amp; Rivals PvP</p>
+      </div>
+
+      <div class="glass-deck p-5 rounded-xl border border-white/10 hover:border-amberGold transition group">
+        <div class="text-[10px] text-slate-500 uppercase tracking-widest flex items-center justify-between">
+          <span>RANK XP BENCHMARK</span>
+          <i class="fa-solid fa-trophy text-amberGold group-hover:scale-125 transition"></i>
+        </div>
+        <div class="text-3xl font-sync font-bold text-white mt-1.5 text-amberGold">10,000+</div>
+        <p class="text-xs text-slate-400 mt-1">Top 0.2% global competitive milestone verified</p>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE YOUTUBE BROADCAST TERMINAL: @Fl1ckCod -->
+    <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-neonCrimson/40 relative overflow-hidden shadow-crimsonGlow">
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
+            <span class="text-xs font-mono text-neonCrimson font-bold uppercase tracking-widest">
+              OFFICIAL STREAMCAST &bull; YOUTUBE HIGHLIGHTS
+            </span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-sync font-black text-white uppercase tracking-tight mt-1">
+            YOUTUBE BROADCAST // <span class="text-red-500">@Fl1ckCod</span>
+          </h2>
+        </div>
+
+        <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-sync text-xs font-bold transition flex items-center gap-2 shadow-lg hover:shadow-red-600/50">
+          <i class="fa-brands fa-youtube text-lg"></i> SUBSCRIBE TO @Fl1ckCod
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6 items-center">
+        <!-- Interactive Mock Video Player / Channel Screen -->
+        <div class="lg:col-span-7 bg-black/90 rounded-xl overflow-hidden border border-white/15 relative group aspect-video flex flex-col justify-between p-6">
+          <div class="absolute inset-0 bg-gradient-to-tr from-black/90 via-black/40 to-transparent pointer-events-none"></div>
+          
+          <!-- Mock Video Background Ambient Simulation -->
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neonCrimson/20 via-transparent to-transparent opacity-60"></div>
+
+          <div class="relative z-10 flex justify-between items-start">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] uppercase font-bold tracking-wider">
+              <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> HIGHLIGHT MONTAGE
+            </div>
+            <span class="font-mono text-xs text-slate-400">1080p 60FPS</span>
+          </div>
+
+          <div class="relative z-10 my-auto text-center space-y-3">
+            <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="w-16 h-16 rounded-full bg-red-600/90 hover:bg-red-600 text-white inline-flex items-center justify-center text-2xl transition transform hover:scale-110 shadow-crimsonGlow mx-auto">
+              <i class="fa-solid fa-play ml-1"></i>
+            </a>
+            <h3 class="text-lg sm:text-xl font-sync font-bold text-white uppercase tracking-wider">
+              DOESNTFLICKANYMORE // FAST-SCOPE VOL. 1
+            </h3>
+            <p class="font-mono text-xs text-slate-300 max-w-md mx-auto">
+              Asia S&amp;D Tournament Round Clutches, Wall-Bang Snipes &amp; DL Q33 Quick-Scope Sequences.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex justify-between items-center font-mono text-xs text-slate-400 border-t border-white/10 pt-3">
+            <span>TEAM ETERNITY OFFICIAL CONTENT</span>
+            <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="text-plasmaCyan hover:underline flex items-center gap-1">
+              <span>WATCH ON YOUTUBE</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Channel Details & Quick Watch Cards -->
+        <div class="lg:col-span-5 space-y-4 font-mono text-xs">
+          <div class="p-4 rounded-xl bg-voidDark/80 border border-white/10 hover:border-red-500/50 transition">
+            <div class="flex items-center justify-between text-slate-400 pb-2 border-b border-white/5">
+              <span class="uppercase tracking-widest text-[10px]">PRIMARY FOCUS</span>
+              <span class="text-red-500 font-bold">CODM SNIPER CONTENT</span>
+            </div>
+            <p class="text-white font-bold text-sm mt-2">Ranked Search &amp; Destroy Masterclass</p>
+            <p class="text-slate-400 mt-1">High-stakes gameplay, flick recoil control, and tournament positioning guides.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-voidDark/80 border border-white/10 hover:border-electricViolet/50 transition">
+            <div class="flex items-center justify-between text-slate-400 pb-2 border-b border-white/5">
+              <span class="uppercase tracking-widest text-[10px]">ROBLOX CONTENT</span>
+              <span class="text-electricViolet font-bold">RIVALS &amp; BLOX FRUITS</span>
+            </div>
+            <p class="text-white font-bold text-sm mt-2">High Bounty PvP &amp; Movement Guides</p>
+            <p class="text-slate-400 mt-1">Clutch swordplay, combo mechanics, and tournament matches.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-voidDark/80 border border-white/10 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-500 block uppercase">CHANNEL HANDLE</span>
+              <span class="text-white font-bold text-sm">@Fl1ckCod</span>
+            </div>
+            <button onclick="copyData('https://www.youtube.com/@Fl1ckCod', 'YOUTUBE LINK COPIED')" class="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/15 text-slate-300 hover:text-white transition">
+              <i class="fa-regular fa-copy mr-1"></i> COPY LINK
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 02: 10,000+ RANK XP PROOF SHOWCASE (18240.png) -->
+    <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-amberGold/40 relative overflow-hidden shadow-goldGlow">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-7 space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-holoGreen animate-ping"></span>
+            <span class="text-holoGreen font-mono text-xs font-bold tracking-widest uppercase">
+              CONFIRMED INTELLIGENCE &bull; ASIA / GLOBAL SERVER
+            </span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-sync font-black text-white uppercase tracking-tight">
+            10,000+ RANK XP <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500">LEGENDARY</span>
+          </h2>
+
+          <p class="font-mono text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Verified proof of reaching over 10,000 Rank XP in Call of Duty: Mobile. Top <span class="text-yellow-400 font-bold">99.8%</span> ranked players beaten across global competitive leaderboards in Asian match lobbies.
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 font-mono text-xs">
+            <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10">
+              <span class="text-[10px] text-slate-500 block uppercase">RANK XP TIER</span>
+              <span class="text-yellow-400 font-bold text-lg">10,000+</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10">
+              <span class="text-[10px] text-slate-500 block uppercase">GLOBAL PERCENTILE</span>
+              <span class="text-holoGreen font-bold text-lg">TOP 0.2%</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 col-span-2 sm:col-span-1">
+              <span class="text-[10px] text-slate-500 block uppercase">LAST MATCH BONUS</span>
+              <span class="text-plasmaCyan font-bold text-lg">+92 XP CLUTCH</span>
+            </div>
+          </div>
+
+          <div class="pt-3 flex flex-wrap gap-3">
+            <button onclick="triggerConfetti()" class="px-6 py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-black font-sync text-xs font-bold transition flex items-center gap-2 shadow-goldGlow transform hover:scale-105">
+              <i class="fa-solid fa-cake-candles"></i> CELEBRATE 10K XP
+            </button>
+            <button onclick="openLightbox('18240.png')" class="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-mono text-xs transition flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass-plus text-plasmaCyan"></i> INSPECT SCREENSHOT
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="relative group rounded-xl overflow-hidden border-2 border-yellow-500/50 shadow-[0_0_35px_rgba(234,179,8,0.3)] bg-black aspect-[9/16] max-h-[460px] mx-auto flex items-center justify-center cursor-pointer" onclick="openLightbox('18240.png')">
+            <img 
+              id="proofImg18240"
+              src="18240.png" 
+              alt="CODM 10,000+ Rank XP Proof Screenshot"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onerror="handleImageFallback(this, ['18240.png', '18240.jpg', '18247.png'])"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center text-xs font-mono">
+              <span class="text-yellow-400 font-bold"><i class="fa-solid fa-shield-halved mr-1"></i>VERIFIED SCREENSHOT</span>
+              <span class="text-white text-[10px] bg-black/70 px-2 py-0.5 rounded border border-white/20">CLICK TO ZOOM</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SIGNATURE GUNSMITH WORKBENCH (DL Q33 & Locus Meta) -->
+    <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-white/10">
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10 font-mono text-xs">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-plasmaCyan animate-ping"></span>
+            <span class="text-plasmaCyan font-bold uppercase tracking-widest">SPEC-OPS ARSENAL BENCH</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-sync font-black text-white mt-1 uppercase">
+            DL Q33 &bull; FAST-SCOPE SCRIM SPEC
+          </h2>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <button onclick="testFireSniperSound()" class="px-4 py-2.5 rounded-lg bg-neonCrimson hover:bg-red-600 text-white font-sync text-xs font-bold transition flex items-center gap-2 shadow-crimsonGlow">
+            <i class="fa-solid fa-crosshairs"></i> TEST FIRE DL Q33
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-6 items-center">
+        <!-- Weapon Attachments Details -->
+        <div class="lg:col-span-5 space-y-3 font-mono text-xs">
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-slate-500 block text-[10px] uppercase">BARREL</span>
+              <span class="text-white font-bold">MIP Light (.08s Scoping Reduction)</span>
+            </div>
+            <i class="fa-solid fa-screwdriver-wrench text-plasmaCyan"></i>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-slate-500 block text-[10px] uppercase">STOCK</span>
+              <span class="text-white font-bold">YKM Combat Stock (Max Agility)</span>
+            </div>
+            <i class="fa-solid fa-gun text-neonCrimson"></i>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-slate-500 block text-[10px] uppercase">LASER</span>
+              <span class="text-white font-bold">OWC Tactical (Zero Disruption)</span>
+            </div>
+            <i class="fa-solid fa-crosshairs text-electricViolet"></i>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-slate-500 block text-[10px] uppercase">PERK &amp; MAGAZINE</span>
+              <span class="text-white font-bold">Sleight of Hand + Fast Reload</span>
+            </div>
+            <i class="fa-solid fa-bolt text-amberGold"></i>
+          </div>
+        </div>
+
+        <!-- Telemetry Progress Bars -->
+        <div class="lg:col-span-7 space-y-4">
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-300 mb-1.5">
+              <span>ADS SPEED (AIM-DOWN-SIGHT TIME)</span>
+              <span class="text-plasmaCyan font-bold">310ms (FAST-FLICK ENTRY META)</span>
+            </div>
+            <div class="w-full bg-voidDark h-3 rounded-full overflow-hidden border border-white/10">
+              <div class="bg-plasmaCyan h-full w-[94%] transition-all duration-1000"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-300 mb-1.5">
+              <span>ONE-SHOT KILL ZONE COVERAGE</span>
+              <span class="text-neonCrimson font-bold">INFINITE RANGE (UPPER CHEST &amp; HEAD)</span>
+            </div>
+            <div class="w-full bg-voidDark h-3 rounded-full overflow-hidden border border-white/10">
+              <div class="bg-neonCrimson h-full w-[98%] transition-all duration-1000"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-300 mb-1.5">
+              <span>SPRINT-TO-FIRE LATENCY REDUCTION</span>
+              <span class="text-electricViolet font-bold">OPTIMIZED MAXIMUM (-18%)</span>
+            </div>
+            <div class="w-full bg-voidDark h-3 rounded-full overflow-hidden border border-white/10">
+              <div class="bg-electricViolet h-full w-[90%] transition-all duration-1000"></div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-deckSurface/60 border border-white/10 font-mono text-xs text-slate-400 flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-holoGreen text-base mt-0.5"></i>
+            <span>
+              Configured specifically for Tal iban’s aggressive search-and-destroy entry picks, rapid wall-bang sweeps, and quick target acquisitions against top Asian teams.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLASSIFIED HOLOGRAPHIC ARCHIVES (All 7 Ghost Images Integrated) -->
+    <section class="glass-deck rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-white/10">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
+        <div>
+          <span class="text-xs font-mono text-neonCrimson font-bold uppercase tracking-widest block">DOSSIER DATABASE</span>
+          <h2 class="text-2xl sm:text-3xl font-sync font-bold text-white uppercase">TASK FORCE 141 VISUAL ARCHIVES</h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-mono text-slate-400">7 VERIFIED INTEL ARTIFACTS</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-6">
+
+        <!-- Image 18247 -->
+        <div onclick="openLightbox('18247.png')" class="group relative rounded-xl overflow-hidden border border-white/10 hover:border-neonCrimson bg-black cursor-pointer aspect-[9/14] flex flex-col justify-end p-4 transition duration-300 hover:-translate-y-1 shadow-lg">
+          <img src="18247.png" alt="Ghost Sniper Red Skull" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="handleImageFallback(this, ['18247.png', '18247.jpg'])" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+          <div class="relative z-10 font-mono">
+            <span class="text-[10px] text-neonCrimson font-bold block">FILE // 18247</span>
+            <span class="text-xs font-sync text-white font-bold block">RED SKULL SNIPER</span>
+            <span class="text-[10px] text-slate-400">Simon Riley Active Recon</span>
+          </div>
+        </div>
+
+        <!-- Image 18245 -->
+        <div onclick="openLightbox('18245.png')" class="group relative rounded-xl overflow-hidden border border-white/10 hover:border-plasmaCyan bg-black cursor-pointer aspect-[9/14] flex flex-col justify-end p-4 transition duration-300 hover:-translate-y-1 shadow-lg">
+          <img src="18245.png" alt="The Weak Don't Get To Decide Anything" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="handleImageFallback(this, ['18245.png', '18245.jpg'])" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+          <div class="relative z-10 font-mono">
+            <span class="text-[10px] text-plasmaCyan font-bold block">FILE // 18245</span>
+            <span class="text-xs font-sync text-white font-bold block">THE WEAK</span>
+            <span class="text-[10px] text-slate-400">“...Don't get to decide anything.”</span>
+          </div>
+        </div>
+
+        <!-- Image 18244 -->
+        <div onclick="openLightbox('18244.png')" class="group relative rounded-xl overflow-hidden border border-white/10 hover:border-electricViolet bg-black cursor-pointer aspect-[9/14] flex flex-col justify-end p-4 transition duration-300 hover:-translate-y-1 shadow-lg">
+          <img src="18244.png" alt="Ghost Mask Close-Up Reflection" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="handleImageFallback(this, ['18244.png', '18244.jpg'])" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+          <div class="relative z-10 font-mono">
+            <span class="text-[10px] text-electricViolet font-bold block">FILE // 18244</span>
+            <span class="text-xs font-sync text-white font-bold block">SHADOW REFLECTION</span>
+            <span class="text-[10px] text-slate-400">Dark NVG Spec-Ops</span>
+          </div>
+        </div>
+
+        <!-- Image 18243 -->
+        <div onclick="openLightbox('18243.png')" class="group relative rounded-xl overflow-hidden border border-white/10 hover:border-holoGreen bg-black cursor-pointer aspect-[9/14] flex flex-col justify-end p-4 transition duration-300 hover:-translate-y-1 shadow-lg">
+          <img src="18243.png" alt="Stay Frosty Simon Riley Collage" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="handleImageFallback(this, ['18243.png', '18243.jpg'])" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+          <div class="relative z-10 font-mono">
+            <span class="text-[10px] text-holoGreen font-bold block">FILE // 18243</span>
+            <span class="text-xs font-sync text-white font-bold block">STAY FROSTY</span>
+            <span class="text-[10px] text-slate-400">Simon Riley Trust Dossier</span>
+          </div>
+        </div>
+
+        <!-- Image 18242 -->
+        <div onclick="openLightbox('18242.png')" class="group relative rounded-xl overflow-hidden border border-white/10 hover:border-amberGold bg-black cursor-pointer aspect-[9/14] flex flex-col justify-end p-4 transition duration-300 hover:-translate-y-1 shadow-lg">
+          <img src="18242.png" alt="Task Force 141 Squad" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="handleImageFallback(this, ['18242.png', '18242.jpg'])" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+          <div class="relative z-10 font-mono">
+            <span class="text-[10px] text-amberGold font-bold block">FILE // 18242</span>
+            <span class="text-xs font-sync text-white font-bold block">TASK FORCE 141</span>
+            <span class="text-[10px] text-slate-400">“...and the world stays clean.”</span>
+          </div>
+        </div>
+
+        <!-- Image 18241 -->
+        <div onclick="openLightbox('18241.png')" class="group relative rounded-xl overflow-hidden border border-white/10 hover:border-neonCrimson bg-black cursor-pointer aspect-[9/14] flex flex-col justify-end p-4 transition duration-300 hover:-translate-y-1 shadow-lg">
+          <img src="18241.png" alt="Be careful who you trust Sergeant" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="handleImageFallback(this, ['18241.png', '18241.jpg'])" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+          <div class="relative z-10 font-mono">
+            <span class="text-[10px] text-neonCrimson font-bold block">FILE // 18241</span>
+            <span class="text-xs font-sync text-white font-bold block">BE CAREFUL</span>
+            <span class="text-[10px] text-slate-400">Sergeant Psychological Profile</span>
+          </div>
+        </div>
+
+        <!-- Image 18240 (Milestone Proof Card) -->
+        <div onclick="openLightbox('18240.png')" class="group relative rounded-xl overflow-hidden border-2 border-yellow-500/50 bg-black cursor-pointer aspect-[9/14] flex flex-col justify-end p-4 transition duration-300 hover:-translate-y-1 sm:col-span-2 md:col-span-2 lg:col-span-2 shadow-goldGlow">
+          <img src="18240.png" alt="10k XP Victory Ranked Proof" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="handleImageFallback(this, ['18240.png', '18240.jpg'])" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div class="relative z-10 font-mono">
+            <span class="text-[10px] text-yellow-400 font-bold block uppercase tracking-wider">FILE // 18240 (CHAMPIONSHIP INTEL)</span>
+            <span class="text-sm font-sync text-white font-bold block">10,000+ RANK XP MILESTONE</span>
+            <span class="text-xs text-slate-300">Top 0.2% Global Ranking Verified &bull; Search &amp; Destroy Leader</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COMMS & SQUAD FREQUENCY HUB -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- YouTube Channel Direct Card -->
+      <div class="lg:col-span-6 glass-deck rounded-2xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-xs font-mono pb-4 border-b border-white/10">
+            <span class="text-neonCrimson font-bold"><i class="fa-brands fa-youtube mr-1.5"></i>OFFICIAL CHANNEL</span>
+            <span class="text-slate-400">@Fl1ckCod</span>
+          </div>
+          <h3 class="text-2xl font-sync font-bold text-white mt-4 uppercase">SNIPER RECON &amp; HIGHLIGHTS</h3>
+          <p class="font-mono text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+            Watch high-octane Search &amp; Destroy clutches, flick-aim wallbang montages, and competitive Asian scrim footage.
+          </p>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-mono text-xs font-bold transition flex items-center gap-2">
+            <i class="fa-brands fa-youtube text-base"></i> OPEN YOUTUBE CHANNEL
+          </a>
+          <button onclick="playGhostAudioQuote()" class="px-4 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 font-mono text-xs transition">
+            <i class="fa-solid fa-microphone-lines mr-1.5 text-plasmaCyan"></i> DECODE AUDIO LOG
+          </button>
+        </div>
+      </div>
+
+      <!-- Discord & Guns.lol Hub -->
+      <div class="lg:col-span-6 glass-deck rounded-2xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-xs font-mono pb-4 border-b border-white/10">
+            <span class="text-electricViolet font-bold"><i class="fa-brands fa-discord mr-1.5"></i>TEAM ETERNITY DISCORD</span>
+            <span class="text-slate-400">COMMUNITY FREQUENCY</span>
+          </div>
+          <h3 class="text-2xl font-sync font-bold text-white mt-4 uppercase">JOIN THE ASIA ROSTER</h3>
+          <p class="font-mono text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+            Connect with Team Eternity for competitive scrims, 1v1 sniper wagers, and tactical Call of Duty: Mobile tournaments.
+          </p>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3 font-mono text-xs">
+          <a href="https://discord.gg/jgyBJEmZ2" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg bg-electricViolet hover:bg-purple-600 text-white font-bold transition flex items-center gap-2">
+            <i class="fa-brands fa-discord text-base"></i> JOIN DISCORD SERVER
+          </a>
+          <a href="https://guns.lol/swiiiiift" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/20 text-white transition flex items-center gap-2">
+            <i class="fa-solid fa-link text-plasmaCyan"></i> GUNS.LOL BIO
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FOOTER CLASSIFIED OS BAR -->
+    <footer class="glass-deck rounded-xl p-6 border border-white/10 flex flex-wrap justify-between items-center text-xs font-mono text-slate-400 gap-4">
+      <div>
+        <span class="text-white font-bold">TAL IBAN // TEAM ETERNITY</span> &bull; 
+        <span class="text-slate-500">CODM UID: 7105665127022067713</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>“Just another day at the office.”</span>
+        <span class="text-neonCrimson font-bold">&bull; DOESNTFLICKANYMORE</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- FULLSCREEN LIGHTBOX MODAL FOR INTEL IMAGES -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="relative max-w-4xl max-h-[90vh] flex flex-col items-center">
+      <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-neonCrimson text-2xl font-mono px-3 py-1 bg-black/60 rounded border border-white/20">
+        <i class="fa-solid fa-xmark"></i> CLOSE
+      </button>
+      <img id="lightboxImg" src="" alt="Tactical Intel Inspection" class="max-w-full max-h-[80vh] object-contain rounded-lg border border-white/20 shadow-2xl" />
+      <div id="lightboxCaption" class="mt-4 font-mono text-xs text-plasmaCyan tracking-wider uppercase"></div>
+    </div>
+  </div>
+
+  <!-- TACTICAL NOTIFICATION TOAST -->
+  <div id="hudToast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none glass-deck px-4 py-3 rounded-lg border-l-4 border-neonCrimson font-mono text-xs text-white shadow-crimsonGlow flex items-center gap-3">
+    <i class="fa-solid fa-satellite-dish text-neonCrimson"></i>
+    <span id="toastMsg">ACTION CONFIRMED</span>
+  </div>
+
+  <!-- CONFETTI CANVAS FOR 10K XP CELEBRATION -->
+  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    // Dual Extension Image Fallback Handler (.png <-> .jpg)
+    function handleImageFallback(imgEl, fallbackList) {
+      if (!imgEl.dataset.fallbackIndex) {
+        imgEl.dataset.fallbackIndex = '0';
+      }
+      let idx = parseInt(imgEl.dataset.fallbackIndex, 10);
+      idx++;
+      if (idx < fallbackList.length) {
+        imgEl.dataset.fallbackIndex = idx.toString();
+        imgEl.src = fallbackList[idx];
+      }
+    }
+
+    // Custom HUD Notification Toast
+    function triggerToast(message) {
+      const toast = document.getElementById('hudToast');
+      const msg = document.getElementById('toastMsg');
+      msg.textContent = message;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      playTone(850, 0.08, 'sine');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 2600);
+    }
+
+    // One-Click Copy Helper
+    function copyData(text, toastAlert) {
+      document.execCommand('copy');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).catch(() => {});
+      }
+      triggerToast(toastAlert);
+    }
+
+    // Lightbox Modal Controls
+    function openLightbox(src) {
+      const modal = document.getElementById('lightboxModal');
+      const img = document.getElementById('lightboxImg');
+      const caption = document.getElementById('lightboxCaption');
+      img.src = src;
+      caption.textContent = "INTEL ARTIFACT CLASSIFIED: " + src.toUpperCase();
+      modal.classList.remove('hidden');
+      playTone(550, 0.1, 'triangle');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.add('hidden');
+    }
+
+    // ==========================================
+    // WEB AUDIO API SYNTHESIZER & SOUND SYSTEM
+    // ==========================================
+    let audioCtx = null;
+    let sfxEnabled = true;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playTone(freq, duration, type = 'sine') {
+      if (!sfxEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    function toggleSfx() {
+      sfxEnabled = !sfxEnabled;
+      const icon = document.getElementById('sfxIcon');
+      if (sfxEnabled) {
+        icon.className = "fa-solid fa-volume-high text-neonCrimson";
+        triggerToast("TACTICAL SFX: ONLINE");
+      } else {
+        icon.className = "fa-solid fa-volume-xmark text-slate-500";
+        triggerToast("TACTICAL SFX: MUTED");
+      }
+    }
+
+    function playGhostAudioQuote() {
+      playTone(280, 0.15, 'sawtooth');
+      setTimeout(() => playTone(190, 0.25, 'square'), 100);
+      setTimeout(() => playTone(140, 0.35, 'sine'), 220);
+      triggerToast("AUDIO LOG DECODED: “Just another day at the office.”");
+    }
+
+    function testFireSniperSound() {
+      playTone(180, 0.18, 'sawtooth');
+      setTimeout(() => playTone(85, 0.38, 'square'), 40);
+      setTimeout(() => playTone(50, 0.45, 'sine'), 90);
+      triggerToast("DL Q33 HEAVY ROUND DISCHARGED // SUPPRESSED");
+    }
+
+    // ==========================================
+    // MULTI-PRESET SOOTHING BINAURAL CYBER DRONE
+    // ==========================================
+    let ambientActive = false;
+    let ambientNodes = [];
+    let currentPresetIndex = 0;
+
+    const synthPresets = [
+      { name: "CHILL BINAURAL", freqs: [130.81, 155.56, 196.00, 233.08] }, // C minor 7
+      { name: "DEEP VOID", freqs: [110.00, 164.81, 220.00, 293.66] },      // A minor 9
+      { name: "NEON SUNSET", freqs: [146.83, 185.00, 220.00, 277.18] }     // D major 7
+    ];
+
+    function toggleAmbientAudio() {
+      const btnLabel = document.getElementById('ambientLabel');
+      const eqBars = document.getElementById('eqBars');
+      const ctx = getAudioContext();
+
+      if (!ambientActive) {
+        ambientActive = true;
+        eqBars.classList.add('animate-pulse');
+        startSynthPreset(currentPresetIndex);
+      } else {
+        ambientActive = false;
+        btnLabel.textContent = "SOOTHING SYNTH: OFF";
+        eqBars.classList.remove('animate-pulse');
+        stopAmbientNodes();
+        triggerToast("AMBIENT SYNTH DISABLED");
+      }
+    }
+
+    function startSynthPreset(index) {
+      stopAmbientNodes();
+      const ctx = getAudioContext();
+      const preset = synthPresets[index];
+      const btnLabel = document.getElementById('ambientLabel');
+      btnLabel.textContent = "SYNTH: " + preset.name;
+
+      ambientNodes = preset.freqs.map((f, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+
+        osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(f, ctx.currentTime);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(420, ctx.currentTime);
+
+        gain.gain.setValueAtTime(0.016, ctx.currentTime);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        return { osc, gain };
+      });
+
+      triggerToast("SYNTH LOADED: " + preset.name);
+    }
+
+    function cycleSynthPreset() {
+      currentPresetIndex = (currentPresetIndex + 1) % synthPresets.length;
+      if (ambientActive) {
+        startSynthPreset(currentPresetIndex);
+      } else {
+        triggerToast("NEXT PRESET: " + synthPresets[currentPresetIndex].name);
+      }
+    }
+
+    function stopAmbientNodes() {
+      ambientNodes.forEach(node => {
+        try {
+          node.osc.stop();
+          node.osc.disconnect();
+        } catch(e) {}
+      });
+      ambientNodes = [];
+    }
+
+    // ==========================================
+    // INTERACTIVE SNIPER RECON LAB (AIM TRAINER)
+    // ==========================================
+    let gameTimer = 15.0;
+    let gameScore = 0;
+    let gameInterval = null;
+    let isGameRunning = false;
+
+    function startAimGame() {
+      const overlay = document.getElementById('gameOverlay');
+      const target = document.getElementById('targetMarker');
+      overlay.classList.add('hidden');
+      target.classList.remove('hidden');
+      
+      gameScore = 0;
+      gameTimer = 15.0;
+      isGameRunning = true;
+      document.getElementById('gameScore').textContent = '0';
+      document.getElementById('gameTimer').textContent = '15.0s';
+      
+      repositionTarget();
+
+      clearInterval(gameInterval);
+      const startTime = Date.now();
+      gameInterval = setInterval(() => {
+        const elapsed = (Date.now() - startTime) / 1000;
+        const remaining = Math.max(0, 15.0 - elapsed);
+        document.getElementById('gameTimer').textContent = remaining.toFixed(1) + 's';
+
+        if (remaining <= 0) {
+          endAimGame();
+        }
+      }, 100);
+    }
+
+    function repositionTarget() {
+      const box = document.getElementById('aimBox');
+      const target = document.getElementById('targetMarker');
+      const maxX = box.clientWidth - 60;
+      const maxY = box.clientHeight - 60;
+      const x = Math.max(30, Math.floor(Math.random() * maxX));
+      const y = Math.max(30, Math.floor(Math.random() * maxY));
+      target.style.left = x + 'px';
+      target.style.top = y + 'px';
+    }
+
+    function hitTarget(e) {
+      if (!isGameRunning) return;
+      e.stopPropagation();
+      gameScore += 100;
+      document.getElementById('gameScore').textContent = gameScore;
+      playTone(1100, 0.08, 'sine');
+      repositionTarget();
+    }
+
+    function endAimGame() {
+      clearInterval(gameInterval);
+      isGameRunning = false;
+      document.getElementById('targetMarker').classList.add('hidden');
+      const overlay = document.getElementById('gameOverlay');
+      overlay.classList.remove('hidden');
+      overlay.innerHTML = `
+        <i class="fa-solid fa-award text-4xl text-holoGreen mb-2"></i>
+        <h3 class="text-lg font-sync font-bold text-white uppercase">DRILL COMPLETED</h3>
+        <p class="font-mono text-sm text-yellow-400 font-bold my-1">FINAL SCORE: ${gameScore} PTS</p>
+        <p class="font-mono text-xs text-slate-400 mb-4">REACTION SPEED: ELITE SNIPER TIER</p>
+        <button onclick="startAimGame()" class="px-6 py-2.5 rounded-lg bg-neonCrimson hover:bg-red-600 text-white font-sync text-xs font-bold transition shadow-crimsonGlow">
+          RE-CALIBRATE
+        </button>
+      `;
+      playTone(440, 0.25, 'triangle');
+    }
+
+    // ==========================================
+    // CONFETTI FIREWORKS FOR 10K XP
+    // ==========================================
+    function triggerConfetti() {
+      playTone(720, 0.15, 'triangle');
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#ff003c', '#00f0ff', '#eab308', '#a855f7', '#ffffff'];
+
+      for (let i = 0; i < 140; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height * 0.6,
+          vx: (Math.random() - 0.5) * 18,
+          vy: (Math.random() - 0.7) * 20,
+          size: Math.random() * 6 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: 1,
+          rot: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 14
+        });
+      }
+
+      function renderConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.35;
+          p.alpha -= 0.012;
+          p.rot += p.rotSpeed;
+
+          if (p.alpha > 0) {
+            active = true;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rot * Math.PI) / 180);
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+          }
+        });
+
+        if (active) {
+          requestAnimationFrame(renderConfetti);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      renderConfetti();
+      triggerToast("10,000+ RANK XP MILESTONE CELEBRATED!");
+    }
+
+    // ==========================================
+    // PROCEDURAL 3D BACKGROUND ENGINE
+    // ==========================================
+    const bgCanvas = document.getElementById('cyberCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    let mouse = { x: -1000, y: -1000 };
+
+    function resizeCanvas() {
+      width = bgCanvas.width = window.innerWidth;
+      height = bgCanvas.height = window.innerHeight;
+      initParticles();
+    }
+
+    function initParticles() {
+      particles = [];
+      const count = Math.floor(width / 20);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 2 + 0.8,
+          color: i % 3 === 0 ? '#ff003c' : (i % 3 === 1 ? '#00f0ff' : '#a855f7')
+        });
+      }
+    }
+
+    // Tactical Mouse Tracking Reticle & Gravity
+    const crosshair = document.getElementById('tacticalCrosshair');
+    const coordsEl = document.getElementById('mouseCoords');
+
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      if (crosshair) {
+        crosshair.style.left = e.clientX + 'px';
+        crosshair.style.top = e.clientY + 'px';
+      }
+      if (coordsEl) {
+        coordsEl.textContent = `${e.clientX} : ${e.clientY}`;
+      }
+    });
+
+    let gridOffset = 0;
+    function animateBackground() {
+      bgCtx.clearRect(0, 0, width, height);
+
+      // 1. Drifting Horizon Grid
+      gridOffset = (gridOffset + 0.35) % 40;
+      bgCtx.strokeStyle = 'rgba(0, 240, 255, 0.04)';
+      bgCtx.lineWidth = 1;
+
+      for (let x = 0; x < width; x += 60) {
+        bgCtx.beginPath();
+        bgCtx.moveTo(x, 0);
+        bgCtx.lineTo(x, height);
+        bgCtx.stroke();
+      }
+      for (let y = gridOffset; y < height; y += 40) {
+        bgCtx.beginPath();
+        bgCtx.moveTo(0, y);
+        bgCtx.lineTo(width, y);
+        bgCtx.stroke();
+      }
+
+      // 2. Interactive Constellation Particles & Repulsion
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+
+        // Mouse Repulsion Field
+        let dx = p.x - mouse.x;
+        let dy = p.y - mouse.y;
+        let distMouse = Math.hypot(dx, dy);
+        if (distMouse < 110) {
+          p.x += (dx / distMouse) * 1.5;
+          p.y += (dy / distMouse) * 1.5;
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        bgCtx.fillStyle = p.color;
+        bgCtx.shadowBlur = 8;
+        bgCtx.shadowColor = p.color;
+        bgCtx.fill();
+        bgCtx.shadowBlur = 0;
+
+        // Connect neighboring points
+        for (let j = i + 1; j < particles.length; j++) {
+          let p2 = particles[j];
+          let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if (dist < 95) {
+            bgCtx.beginPath();
+            bgCtx.moveTo(p.x, p.y);
+            bgCtx.lineTo(p2.x, p2.y);
+            bgCtx.strokeStyle = `rgba(168, 85, 247, ${0.12 * (1 - dist / 95)})`;
+            bgCtx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animateBackground);
+    }
+
+    // Ping variation simulation
+    setInterval(() => {
+      const pingEl = document.getElementById('pingValue');
+      if (pingEl) {
+        const ping = Math.floor(Math.random() * 6) + 12;
+        pingEl.textContent = ping + 'ms';
+      }
+    }, 4000);
+
+    // Initial setup
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    animateBackground();
+  </script>
+</body>
+</html>
