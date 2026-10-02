@@ -19,10 +19,10 @@
       theme: {
         extend: {
           colors: {
-            voidDark: '#020104',
-            deepBlack: '#06040a',
-            deckSurface: '#0b0814',
-            deckSurfaceHigh: '#120d20',
+            voidDark: '#030206',
+            deepBlack: '#07050d',
+            deckSurface: '#0d0918',
+            deckSurfaceHigh: '#150f26',
             neonCrimson: '#ff003c',
             bloodRed: '#dc2626',
             plasmaCyan: '#00f0ff',
@@ -37,10 +37,10 @@
             mono: ['JetBrains Mono', 'monospace'],
           },
           boxShadow: {
-            crimsonGlow: '0 0 30px rgba(255, 0, 60, 0.45)',
-            cyanGlow: '0 0 30px rgba(0, 240, 255, 0.45)',
-            purpleGlow: '0 0 30px rgba(168, 85, 247, 0.45)',
-            goldGlow: '0 0 35px rgba(245, 158, 11, 0.4)',
+            crimsonGlow: '0 0 30px rgba(255, 0, 60, 0.4)',
+            cyanGlow: '0 0 30px rgba(0, 240, 255, 0.4)',
+            purpleGlow: '0 0 30px rgba(168, 85, 247, 0.4)',
+            goldGlow: '0 0 35px rgba(245, 158, 11, 0.35)',
           }
         }
       }
@@ -49,72 +49,34 @@
 
   <style>
     body {
-      background-color: #020104;
+      background-color: #030206;
       color: #e2e8f0;
       font-family: 'Rajdhani', sans-serif;
       overflow-x: hidden;
     }
 
-    /* Holo-Scanline Effect */
     .holo-scanlines {
       background: linear-gradient(
         to bottom,
         rgba(255,255,255,0),
         rgba(255,255,255,0) 50%,
-        rgba(0, 240, 255, 0.035) 50%,
-        rgba(0, 240, 255, 0.035)
+        rgba(0, 240, 255, 0.025) 50%,
+        rgba(0, 240, 255, 0.025)
       );
       background-size: 100% 4px;
     }
 
-    /* Cyber Deck Glass Surface */
     .glass-deck {
-      background: rgba(11, 8, 20, 0.82);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(13, 9, 24, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
     }
     .glass-deck:hover {
-      border-color: rgba(255, 0, 60, 0.4);
+      border-color: rgba(255, 0, 60, 0.35);
     }
 
-    /* Tactical Glitch Text Effect */
-    .glitch-title {
-      position: relative;
-    }
-    .glitch-title::before,
-    .glitch-title::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      clip: rect(0, 0, 0, 0);
-    }
-    .glitch-title:hover::before {
-      left: -2px;
-      text-shadow: 2px 0 #ff003c;
-      animation: glitch-anim-1 0.4s infinite linear alternate-reverse;
-    }
-    .glitch-title:hover::after {
-      left: 2px;
-      text-shadow: -2px 0 #00f0ff;
-      animation: glitch-anim-2 0.4s infinite linear alternate-reverse;
-    }
-    @keyframes glitch-anim-1 {
-      0% { clip: rect(15px, 9999px, 35px, 0); }
-      50% { clip: rect(60px, 9999px, 85px, 0); }
-      100% { clip: rect(25px, 9999px, 45px, 0); }
-    }
-    @keyframes glitch-anim-2 {
-      0% { clip: rect(70px, 9999px, 95px, 0); }
-      50% { clip: rect(10px, 9999px, 40px, 0); }
-      100% { clip: rect(45px, 9999px, 75px, 0); }
-    }
-
-    /* Cyber Cut Corner Geometries */
     .clip-corner {
       clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
     }
@@ -122,46 +84,34 @@
       clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
     }
 
-    /* Pulse Radar Beam */
-    @keyframes radarPulse {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    @keyframes radarSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-    .radar-spin {
-      animation: radarPulse 5s linear infinite;
+    .radar-sweep {
+      animation: radarSpin 6s linear infinite;
     }
 
-    /* Audio Equalizer Bar Jumps */
-    @keyframes jumpEq {
-      0%, 100% { height: 4px; }
-      50% { height: 16px; }
-    }
-    .eq-bar-1 { animation: jumpEq 0.6s infinite ease-in-out; }
-    .eq-bar-2 { animation: jumpEq 0.45s infinite ease-in-out 0.15s; }
-    .eq-bar-3 { animation: jumpEq 0.7s infinite ease-in-out 0.3s; }
-    .eq-bar-4 { animation: jumpEq 0.5s infinite ease-in-out 0.1s; }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #020104; }
-    ::-webkit-scrollbar-thumb { background: #ff003c; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+    .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #07050d; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #ff003c; border-radius: 2px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
   </style>
 </head>
-<body class="relative selection:bg-neonCrimson selection:text-white">
+<body class="relative selection:bg-neonCrimson selection:text-white custom-scrollbar">
 
-  <!-- Procedural Cyber Canvas Engine (Particles, 3D Grid, Radar, and Laser Linkages) -->
+  <!-- Procedural Cyber Canvas Engine (Drifting 3D Grid, Radar, and Laser Particle Linkages) -->
   <canvas id="cyberCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
-  <!-- Ambient Holographic Nebula Flares -->
-  <div class="fixed top-0 left-1/4 w-[650px] h-[650px] bg-neonCrimson/10 rounded-full blur-[200px] pointer-events-none z-0"></div>
-  <div class="fixed bottom-0 right-1/4 w-[700px] h-[700px] bg-plasmaCyan/10 rounded-full blur-[210px] pointer-events-none z-0"></div>
-  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-electricViolet/10 rounded-full blur-[190px] pointer-events-none z-0"></div>
+  <!-- Ambient Glow Elements -->
+  <div class="fixed top-0 left-1/4 w-[600px] h-[600px] bg-neonCrimson/10 rounded-full blur-[200px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-0 right-1/4 w-[650px] h-[650px] bg-plasmaCyan/10 rounded-full blur-[210px] pointer-events-none z-0"></div>
+  <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-electricViolet/10 rounded-full blur-[190px] pointer-events-none z-0"></div>
 
   <!-- CRT Holographic Scanline Overlay -->
   <div class="fixed inset-0 holo-scanlines pointer-events-none z-30 opacity-40"></div>
 
-  <!-- Interactive Tactical Crosshair HUD Follower -->
+  <!-- Tactical Reticle HUD Follower -->
   <div id="tacticalCrosshair" class="fixed pointer-events-none z-40 transition-transform duration-75 ease-out -translate-x-1/2 -translate-y-1/2 hidden md:block">
     <div class="w-10 h-10 rounded-full border border-plasmaCyan/50 flex items-center justify-center relative">
       <div class="w-1.5 h-1.5 rounded-full bg-neonCrimson animate-ping"></div>
@@ -170,12 +120,11 @@
       <div class="absolute -left-1 w-2 h-1 bg-plasmaCyan"></div>
       <div class="absolute -right-1 w-2 h-1 bg-plasmaCyan"></div>
     </div>
-    <div class="text-[9px] font-mono text-plasmaCyan/80 tracking-widest pl-6 -mt-3 whitespace-nowrap bg-black/60 px-1 py-0.5 rounded border border-plasmaCyan/20">
+    <div class="text-[9px] font-mono text-plasmaCyan/90 tracking-widest pl-6 -mt-3 whitespace-nowrap bg-black/80 px-1.5 py-0.5 rounded border border-plasmaCyan/30">
       GRID: <span id="mouseCoords">000 : 000</span>
     </div>
   </div>
 
-  <!-- Top Tactical Ribbon Bar -->
   <header class="relative z-40 bg-voidDark/95 border-b border-white/10 px-4 sm:px-8 py-3 backdrop-blur-xl flex flex-wrap justify-between items-center text-xs font-mono">
     <div class="flex items-center gap-3 sm:gap-6">
       <div class="flex items-center gap-2">
@@ -184,7 +133,7 @@
       </div>
       <span class="text-slate-600 hidden sm:inline">|</span>
       <span class="text-plasmaCyan font-bold tracking-wider hidden sm:flex items-center gap-1.5">
-        <i class="fa-solid fa-satellite-dish animate-pulse text-neonCrimson"></i>
+        <i class="fa-solid fa-satellite-dish text-neonCrimson"></i>
         <span>ASIA // GLOBAL LEADERBOARD</span>
       </span>
       <span class="text-slate-600 hidden md:inline">|</span>
@@ -197,7 +146,7 @@
       </span>
     </div>
 
-    <!-- Synth & Direct Quick Actions -->
+    <!-- Quick Audio & Link Actions -->
     <div class="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-0">
       <!-- Binaural Ambient Sound Synthesizer -->
       <div class="flex items-center rounded-lg bg-deckSurface border border-electricViolet/40 overflow-hidden">
@@ -227,13 +176,13 @@
     </div>
   </header>
 
-  <main class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+  <main class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
 
-    <!-- HERO SECTION: Primary Operator Identity & Quick-Scope Aim Terminal -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+    <!-- HERO SECTION: Primary Operator Identity & Origin Lore -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
-      <!-- Left Column: Operator Identity & Dossier -->
-      <section class="lg:col-span-6 glass-deck rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-neonCrimson/40 shadow-crimsonGlow flex flex-col justify-between clip-corner">
+      <!-- Left Column: Operator Identity, Origin of Callsign & Narrative Dossier -->
+      <section class="lg:col-span-7 glass-deck rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-neonCrimson/40 shadow-crimsonGlow flex flex-col justify-between clip-corner">
         
         <!-- Header Ribbon -->
         <div class="flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-slate-400 border-b border-white/10 pb-4">
@@ -242,37 +191,46 @@
               <i class="fa-solid fa-shield mr-1"></i> TASK FORCE 141
             </span>
             <span class="px-2.5 py-0.5 rounded bg-plasmaCyan/20 border border-plasmaCyan text-plasmaCyan font-bold uppercase tracking-wider">
-              ASIA // S&amp;D CLUTCH
+              TEAM ETERNITY // ASIA
             </span>
           </div>
           <div class="text-right">
-            <span class="text-slate-500">OPERATOR:</span> <span class="text-white font-bold">SIMON "GHOST" RILEY</span>
+            <span class="text-slate-500">CODEMAKER:</span> <span class="text-white font-bold">SIMON "GHOST" RILEY</span>
           </div>
         </div>
 
-        <!-- Identity Block -->
-        <div class="py-5 space-y-2.5">
+        <!-- Identity Block & Callsign Lore -->
+        <div class="py-5 space-y-3">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-slate-300">
             <span class="w-2 h-2 rounded-full bg-holoGreen animate-pulse"></span>
-            <span>CODM &bull; ROBLOX CLUTCH OPERATOR</span>
+            <span>CODM TIER-1 S&amp;D ENTRY &bull; ROBLOX CLUTCH MASTER</span>
           </div>
           
-          <h1 class="text-4xl sm:text-6xl font-sync font-black text-white tracking-tight uppercase glitch-title" data-text="TAL IBAN">
+          <h1 class="text-4xl sm:text-6xl font-sync font-black text-white tracking-tight uppercase">
             TAL <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonCrimson via-electricViolet to-plasmaCyan">IBAN</span>
           </h1>
           
-          <p class="font-mono text-xs sm:text-sm text-plasmaCyan tracking-widest uppercase flex items-center gap-2">
-            <span>CALLSIGN: DOESNTFLICKANYMORE</span>
+          <p class="font-mono text-xs sm:text-sm text-plasmaCyan tracking-widest uppercase flex flex-wrap items-center gap-2">
+            <span>CALLSIGN: <span class="text-white font-bold">DOESNTFLICKANYMORE</span></span>
             <span class="text-slate-600">//</span>
-            <span class="text-electricViolet">TEAM ETERNITY</span>
+            <span class="text-electricViolet font-bold">TEAM ETERNITY ROSTER</span>
           </p>
 
-          <!-- Authentic Quote from User & Asset 18247 -->
-          <div class="p-3.5 rounded-xl bg-voidDark/80 border-l-4 border-neonCrimson font-mono text-xs text-slate-300 italic flex items-center justify-between">
-            <span>“Just another day at the office.”</span>
-            <button onclick="playGhostAudioQuote()" class="text-neonCrimson hover:text-white px-2.5 py-1 bg-neonCrimson/10 hover:bg-neonCrimson/30 rounded border border-neonCrimson/30 transition text-[11px]" title="Play Audio Voice Log">
-              <i class="fa-solid fa-volume-high mr-1"></i> VOICE LOG
-            </button>
+          <!-- Authentic Story & Origin Behind Callsign -->
+          <div class="p-4 rounded-xl bg-voidDark/90 border-l-4 border-neonCrimson font-mono text-xs text-slate-300 leading-relaxed space-y-2">
+            <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold uppercase border-b border-white/5 pb-1.5">
+              <span class="text-neonCrimson"><i class="fa-solid fa-crosshairs mr-1.5"></i>THE "DOESNTFLICKANYMORE" DOCTRINE</span>
+              <span class="text-slate-500">OPERATIONAL INTEL</span>
+            </div>
+            <p>
+              "Most snipers rely on wild, erratic flicks. But in top Asian Search &amp; Destroy tournament scrims, crosshair pre-placement and predictive micro-adjustments beat raw flicking every single round. The target walks into the crosshair before they even know the angle exists."
+            </p>
+            <div class="flex items-center justify-between pt-1 italic text-slate-400">
+              <span>“Just another day at the office.”</span>
+              <button onclick="playGhostAudioQuote()" class="text-neonCrimson hover:text-white px-2.5 py-1 bg-neonCrimson/10 hover:bg-neonCrimson/30 rounded border border-neonCrimson/30 transition text-[11px] not-italic" title="Decode Audio Voice Log">
+                <i class="fa-solid fa-volume-high mr-1"></i> VOICE LOG
+              </button>
+            </div>
           </div>
         </div>
 
@@ -286,17 +244,15 @@
             onerror="handleImageFallback(this, ['18247.png', '18247.jpg'])"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-voidDark via-transparent to-transparent"></div>
-          
-          <!-- Scan sweep highlight on hover -->
           <div class="absolute inset-0 bg-gradient-to-b from-transparent via-plasmaCyan/15 to-transparent -translate-y-full group-hover:translate-y-full transition-transform duration-1000 pointer-events-none"></div>
 
           <div class="absolute bottom-3 left-4 right-4 flex justify-between items-end">
             <div>
               <span class="text-[10px] font-mono text-neonCrimson font-bold block tracking-wider">PRIMARY OPERATOR PROFILE</span>
-              <span class="text-xs font-sync text-white font-bold tracking-wider">DOESNTFLICKANYMORE // 18247</span>
+              <span class="text-xs font-sync text-white font-bold tracking-wider">DOESNTFLICKANYMORE // ARTIFACT 18247</span>
             </div>
             <span class="px-2.5 py-1 rounded bg-black/80 hover:bg-neonCrimson border border-white/20 text-white font-mono text-[10px] transition">
-              <i class="fa-solid fa-expand mr-1"></i> INSPECT
+              <i class="fa-solid fa-expand mr-1"></i> INSPECT DOSSIER
             </span>
           </div>
         </div>
@@ -331,185 +287,61 @@
 
       </section>
 
-      <!-- Right Column: Quick-Scope Sniper Recon Simulator -->
-      <section class="lg:col-span-6 glass-deck rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-plasmaCyan/50 shadow-cyanGlow flex flex-col justify-between clip-corner">
+      <!-- Right Column: Interactive Cyber Tactical Terminal (CLI) -->
+      <section class="lg:col-span-5 glass-deck rounded-2xl p-6 relative overflow-hidden border border-plasmaCyan/40 shadow-cyanGlow flex flex-col justify-between clip-corner font-mono">
         
-        <div class="flex items-center justify-between border-b border-white/10 pb-3">
-          <div>
-            <span class="text-[10px] font-mono text-plasmaCyan font-bold tracking-widest block uppercase">TACTICAL RECON DRILL</span>
-            <h2 class="text-xl font-sync font-bold text-white uppercase">SNIPER AIM LAB // REFLEX DRILL</h2>
-          </div>
-          <div class="font-mono text-xs text-right">
-            <span class="text-slate-400 block">SCORE: <span id="gameScore" class="text-neonCrimson font-bold text-lg">0</span></span>
-            <span class="text-slate-500 text-[10px]">TIME LEFT: <span id="gameTimer" class="text-plasmaCyan font-bold">15.0s</span></span>
-          </div>
-        </div>
-
-        <!-- Aim Lab Interactive Arena -->
-        <div class="relative my-4 flex-grow min-h-[300px] rounded-xl border border-white/10 bg-black/90 overflow-hidden select-none cursor-crosshair" id="aimBox">
-          
-          <!-- Background Grid inside Arena -->
-          <div class="absolute inset-0 bg-[radial-gradient(#00f0ff15_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
-
-          <!-- Radar Scanner Lines -->
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border border-plasmaCyan/15 pointer-events-none">
-            <div class="w-full h-full rounded-full border-t-2 border-plasmaCyan/40 radar-spin"></div>
+        <div>
+          <!-- Terminal Titlebar -->
+          <div class="flex items-center justify-between border-b border-white/10 pb-3 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+              <span class="text-plasmaCyan font-bold ml-2">ETERNITY_OS // CLI v4.2</span>
+            </div>
+            <span class="text-slate-500 text-[10px]">AUTH: ENCRYPTED</span>
           </div>
 
-          <div id="gameOverlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center bg-black/85 backdrop-blur-sm">
-            <i class="fa-solid fa-crosshairs text-4xl text-neonCrimson mb-3 animate-pulse"></i>
-            <h3 class="text-lg font-sync font-bold text-white uppercase">FLICK &amp; REACTION CALIBRATION</h3>
-            <p class="font-mono text-xs text-slate-400 max-w-sm mt-1 mb-5">
-              Target flick drill tuned for DL Q33 &amp; Locus fast-snipers in Team Eternity competitive scrims.
-            </p>
-            <button onclick="startAimGame()" class="px-7 py-3 rounded-lg bg-neonCrimson hover:bg-red-600 text-white font-sync text-xs font-bold tracking-wider transition transform hover:scale-105 shadow-crimsonGlow flex items-center gap-2">
-              <i class="fa-solid fa-play"></i> ENGAGE SNIPER DRILL
-            </button>
-          </div>
-
-          <!-- Target Puck with Ripple Animation -->
-          <div id="targetMarker" onclick="hitTarget(event)" class="absolute hidden w-12 h-12 -ml-6 -mt-6 rounded-full border-2 border-plasmaCyan bg-neonCrimson/40 cursor-crosshair flex items-center justify-center transition-all duration-75 shadow-cyanGlow">
-            <div class="w-3 h-3 rounded-full bg-white animate-ping"></div>
+          <!-- Terminal Output Screen -->
+          <div id="terminalScreen" class="bg-black/90 rounded-xl p-4 my-3 h-[380px] overflow-y-auto custom-scrollbar text-xs leading-relaxed space-y-2 border border-white/10 select-text">
+            <div class="text-slate-400">
+              <span class="text-neonCrimson">[SYS]</span> Team Eternity Secure Operational Network Online.<br>
+              <span class="text-holoGreen">[STATUS]</span> Operator: <strong class="text-white">Tal iban</strong> // Call: <strong class="text-white">Doesntflickanymore</strong><br>
+              <span class="text-amberGold">[NOTICE]</span> Type <span class="text-plasmaCyan font-bold">help</span> to view available system commands.
+            </div>
+            <div class="border-t border-white/10 pt-2 text-slate-300">
+              &gt; Ready for input...
+            </div>
           </div>
         </div>
 
-        <div class="pt-2 font-mono text-xs text-slate-400 flex flex-wrap justify-between items-center gap-2 border-t border-white/10">
-          <span class="flex items-center gap-1.5">
-            <i class="fa-solid fa-bolt text-holoGreen"></i>
-            <span>DL Q33 / LOCUS TUNED (310ms ADS)</span>
-          </span>
-          <span class="text-slate-500">HIT TARGETS &bull; SCORE +100 PTS</span>
+        <!-- Terminal Input Prompt -->
+        <form onsubmit="handleTerminalCommand(event)" class="flex items-center gap-2 bg-voidDark/90 rounded-xl border border-white/15 px-3 py-2">
+          <span class="text-neonCrimson font-bold">&gt;</span>
+          <input 
+            type="text" 
+            id="terminalInput" 
+            placeholder="Type command (e.g., help, lore, scrims, loadout)..." 
+            class="bg-transparent text-white text-xs w-full focus:outline-none placeholder-slate-600"
+            autocomplete="off"
+          />
+          <button type="submit" class="px-3 py-1 rounded bg-plasmaCyan/20 hover:bg-plasmaCyan/40 text-plasmaCyan font-bold text-[11px] transition">
+            EXEC
+          </button>
+        </form>
+
+        <div class="flex flex-wrap gap-1.5 pt-2 text-[10px] text-slate-400">
+          <span>QUICK COMMANDS:</span>
+          <button onclick="runQuickCmd('lore')" class="text-plasmaCyan hover:underline">lore</button>&bull;
+          <button onclick="runQuickCmd('scrims')" class="text-plasmaCyan hover:underline">scrims</button>&bull;
+          <button onclick="runQuickCmd('loadout')" class="text-plasmaCyan hover:underline">loadout</button>&bull;
+          <button onclick="runQuickCmd('roblox')" class="text-plasmaCyan hover:underline">roblox</button>&bull;
+          <button onclick="runQuickCmd('clear')" class="text-slate-500 hover:underline">clear</button>
         </div>
 
       </section>
 
     </div>
-
-    <!-- COMBAT TELEMETRY STATS MATRIX -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
-      <div class="glass-deck p-5 rounded-xl border border-white/10 hover:border-neonCrimson transition group">
-        <div class="text-[10px] text-slate-500 uppercase tracking-widest flex items-center justify-between">
-          <span>SEARCH &amp; DESTROY CLUTCH</span>
-          <i class="fa-solid fa-bomb text-neonCrimson group-hover:scale-125 transition"></i>
-        </div>
-        <div class="text-3xl font-sync font-bold text-white mt-1.5">94.2%</div>
-        <p class="text-xs text-slate-400 mt-1">1vX round conversion efficiency in Asia scrims</p>
-      </div>
-
-      <div class="glass-deck p-5 rounded-xl border border-white/10 hover:border-plasmaCyan transition group">
-        <div class="text-[10px] text-slate-500 uppercase tracking-widest flex items-center justify-between">
-          <span>SNIPER PRECISION RATING</span>
-          <i class="fa-solid fa-crosshairs text-plasmaCyan group-hover:scale-125 transition"></i>
-        </div>
-        <div class="text-3xl font-sync font-bold text-white mt-1.5">68.4%</div>
-        <p class="text-xs text-slate-400 mt-1">DL Q33 fast flick upper chest / headshot ratio</p>
-      </div>
-
-      <div class="glass-deck p-5 rounded-xl border border-white/10 hover:border-electricViolet transition group">
-        <div class="text-[10px] text-slate-500 uppercase tracking-widest flex items-center justify-between">
-          <span>ROBLOX COMPETITIVE</span>
-          <i class="fa-solid fa-cube text-electricViolet group-hover:scale-125 transition"></i>
-        </div>
-        <div class="text-3xl font-sync font-bold text-white mt-1.5">MAX TIER</div>
-        <p class="text-xs text-slate-400 mt-1">Blox Fruits Bounty Hunter &amp; Rivals PvP Master</p>
-      </div>
-
-      <div class="glass-deck p-5 rounded-xl border border-white/10 hover:border-amberGold transition group">
-        <div class="text-[10px] text-slate-500 uppercase tracking-widest flex items-center justify-between">
-          <span>RANK XP BENCHMARK</span>
-          <i class="fa-solid fa-trophy text-amberGold group-hover:scale-125 transition"></i>
-        </div>
-        <div class="text-3xl font-sync font-bold text-white mt-1.5 text-amberGold">10,000+</div>
-        <p class="text-xs text-slate-400 mt-1">Top 0.2% global competitive milestone verified</p>
-      </div>
-    </section>
-
-    <!-- INTERACTIVE YOUTUBE BROADCAST TERMINAL: @Fl1ckCod -->
-    <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-neonCrimson/40 relative overflow-hidden shadow-crimsonGlow">
-      <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
-            <span class="text-xs font-mono text-neonCrimson font-bold uppercase tracking-widest">
-              OFFICIAL BROADCAST &bull; YOUTUBE HIGHLIGHTS
-            </span>
-          </div>
-          <h2 class="text-2xl sm:text-4xl font-sync font-black text-white uppercase tracking-tight mt-1">
-            YOUTUBE CHANNEL // <span class="text-red-500">@Fl1ckCod</span>
-          </h2>
-        </div>
-
-        <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-sync text-xs font-bold transition flex items-center gap-2 shadow-lg hover:shadow-red-600/50">
-          <i class="fa-brands fa-youtube text-lg"></i> SUBSCRIBE TO @Fl1ckCod
-        </a>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6 items-center">
-        <!-- Interactive Mock Video Player / Channel Screen -->
-        <div class="lg:col-span-7 bg-black/90 rounded-xl overflow-hidden border border-white/15 relative group aspect-video flex flex-col justify-between p-6">
-          <div class="absolute inset-0 bg-gradient-to-tr from-black/95 via-black/40 to-transparent pointer-events-none"></div>
-          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neonCrimson/25 via-transparent to-transparent opacity-60"></div>
-
-          <div class="relative z-10 flex justify-between items-start">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] uppercase font-bold tracking-wider">
-              <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> HIGHLIGHT MONTAGE
-            </div>
-            <span class="font-mono text-xs text-slate-400">1080p 60FPS</span>
-          </div>
-
-          <div class="relative z-10 my-auto text-center space-y-3">
-            <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="w-16 h-16 rounded-full bg-red-600/90 hover:bg-red-600 text-white inline-flex items-center justify-center text-2xl transition transform hover:scale-110 shadow-crimsonGlow mx-auto">
-              <i class="fa-solid fa-play ml-1"></i>
-            </a>
-            <h3 class="text-lg sm:text-xl font-sync font-bold text-white uppercase tracking-wider">
-              DOESNTFLICKANYMORE // FAST-SCOPE VOL. 1
-            </h3>
-            <p class="font-mono text-xs text-slate-300 max-w-md mx-auto">
-              Asia S&amp;D Tournament Round Clutches, Wall-Bang Snipes &amp; DL Q33 Quick-Scope Sequences.
-            </p>
-          </div>
-
-          <div class="relative z-10 flex justify-between items-center font-mono text-xs text-slate-400 border-t border-white/10 pt-3">
-            <span>TEAM ETERNITY OFFICIAL CONTENT</span>
-            <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="text-plasmaCyan hover:underline flex items-center gap-1">
-              <span>WATCH ON YOUTUBE</span>
-              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Channel Details & Quick Watch Cards -->
-        <div class="lg:col-span-5 space-y-4 font-mono text-xs">
-          <div class="p-4 rounded-xl bg-voidDark/80 border border-white/10 hover:border-red-500/50 transition">
-            <div class="flex items-center justify-between text-slate-400 pb-2 border-b border-white/5">
-              <span class="uppercase tracking-widest text-[10px]">PRIMARY FOCUS</span>
-              <span class="text-red-500 font-bold">CODM SNIPER CONTENT</span>
-            </div>
-            <p class="text-white font-bold text-sm mt-2">Ranked Search &amp; Destroy Masterclass</p>
-            <p class="text-slate-400 mt-1">High-stakes Asian scrims, fast flick recoil control, and tactical wall-bang spots.</p>
-          </div>
-
-          <div class="p-4 rounded-xl bg-voidDark/80 border border-white/10 hover:border-electricViolet/50 transition">
-            <div class="flex items-center justify-between text-slate-400 pb-2 border-b border-white/5">
-              <span class="uppercase tracking-widest text-[10px]">ROBLOX CONTENT</span>
-              <span class="text-electricViolet font-bold">RIVALS &amp; BLOX FRUITS</span>
-            </div>
-            <p class="text-white font-bold text-sm mt-2">High Bounty PvP &amp; Movement Guides</p>
-            <p class="text-slate-400 mt-1">Swordplay combos, bounty hunting mechanics, and tournament matches.</p>
-          </div>
-
-          <div class="p-4 rounded-xl bg-voidDark/80 border border-white/10 flex items-center justify-between">
-            <div>
-              <span class="text-[10px] text-slate-500 block uppercase">CHANNEL HANDLE</span>
-              <span class="text-white font-bold text-sm">@Fl1ckCod</span>
-            </div>
-            <button onclick="copyData('https://www.youtube.com/@Fl1ckCod', 'YOUTUBE LINK COPIED')" class="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/15 text-slate-300 hover:text-white transition">
-              <i class="fa-regular fa-copy mr-1"></i> COPY LINK
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- SECTION 02: 10,000+ RANK XP PROOF SHOWCASE (18240.png) -->
     <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-amberGold/40 relative overflow-hidden shadow-goldGlow">
@@ -529,7 +361,7 @@
 
           <!-- Exact details from screenshot 18240.png -->
           <p class="font-mono text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Verified proof of reaching over 10,000 Rank XP in Call of Duty: Mobile. Top <span class="text-yellow-400 font-bold">99.8%</span> ranked players beaten across global competitive leaderboards in Asian match lobbies.
+            Verified proof of reaching over 10,000 Rank XP in Call of Duty: Mobile. Top <span class="text-yellow-400 font-bold">99.8%</span> ranked players beaten across global competitive leaderboards in Asian match lobbies. Earned a decisive <span class="text-plasmaCyan font-bold">+92 Rank XP</span> in the final Grand Master V promotion match.
           </p>
 
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 font-mono text-xs">
@@ -577,28 +409,117 @@
       </div>
     </section>
 
-    <!-- SIGNATURE GUNSMITH WORKBENCH (DL Q33 Meta Build) -->
-    <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-white/10">
-      <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10 font-mono text-xs">
+    <!-- SECTION 03: CLUTCH DIARIES & TOURNAMENT SCRIM INCIDENTS -->
+    <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-white/10 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4 font-mono text-xs">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-neonCrimson animate-ping"></span>
+            <span class="text-neonCrimson font-bold uppercase tracking-widest">TACTICAL INCIDENT LOGS</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-sync font-bold text-white uppercase mt-1">
+            COMPETITIVE SCRIM DIARIES // ASIA CIRCUIT
+          </h2>
+        </div>
+        <span class="text-slate-400">4 DECLASSIFIED COMBAT ACCOUNTS</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 font-mono text-xs">
+        
+        <!-- Story 1: Standoff 1v4 Bomb Site Ace -->
+        <div class="p-5 rounded-xl bg-voidDark/80 border border-white/10 hover:border-neonCrimson transition space-y-2.5">
+          <div class="flex items-center justify-between text-slate-400 border-b border-white/5 pb-2">
+            <span class="text-neonCrimson font-bold"><i class="fa-solid fa-bomb mr-1.5"></i>OPERATION: STANDOFF DEFENSE</span>
+            <span class="text-slate-500">CODM TOURNAMENT</span>
+          </div>
+          <h3 class="text-white font-sync text-sm font-bold">1v4 B-Site Bomb Clutch // 4-4 Round Decider</h3>
+          <p class="text-slate-300 leading-relaxed">
+            Team Eternity was down 4v5 on Standoff S&amp;D. With bomb planted at B tractor and 24 seconds on the clock, Tal iban held tank angle with DL Q33. Wallbanged first defuser through green house wood, sliding into blue container to no-scope the backup rusher, followed by a double collateral finish on the flankers.
+          </p>
+          <div class="text-[11px] text-plasmaCyan pt-1 flex items-center justify-between">
+            <span>Result: Round Won &bull; Match MVP</span>
+            <span class="text-slate-500">Clutch Rating: 100%</span>
+          </div>
+        </div>
+
+        <!-- Story 2: Crash A-Site Wallbang Sniper Retake -->
+        <div class="p-5 rounded-xl bg-voidDark/80 border border-white/10 hover:border-plasmaCyan transition space-y-2.5">
+          <div class="flex items-center justify-between text-slate-400 border-b border-white/5 pb-2">
+            <span class="text-plasmaCyan font-bold"><i class="fa-solid fa-crosshairs mr-1.5"></i>OPERATION: CRASH SKYLINE</span>
+            <span class="text-slate-500">ASIA SCRIMS</span>
+          </div>
+          <h3 class="text-white font-sync text-sm font-bold">A-Site Top Roof Suppression &amp; Retake</h3>
+          <p class="text-slate-300 leading-relaxed">
+            Opposing squad held tight crossfire from 3-story roof and bottom elevator. Utilizing sound queues and bullet penetration angles, Tal iban threaded two consecutive wall-bangs through the second-floor pillar, isolating the bomb defuser for a clean 0.4s defuse under flashbang blindness.
+          </p>
+          <div class="text-[11px] text-holoGreen pt-1 flex items-center justify-between">
+            <span>Result: Clean Retake &bull; Flawless Round</span>
+            <span class="text-slate-500">Accuracy: 88.2%</span>
+          </div>
+        </div>
+
+        <!-- Story 3: Roblox Rivals Championship -->
+        <div class="p-5 rounded-xl bg-voidDark/80 border border-white/10 hover:border-electricViolet transition space-y-2.5">
+          <div class="flex items-center justify-between text-slate-400 border-b border-white/5 pb-2">
+            <span class="text-electricViolet font-bold"><i class="fa-solid fa-cube mr-1.5"></i>OPERATION: ROBLOX RIVALS</span>
+            <span class="text-slate-500">GLOBAL LOBBY</span>
+          </div>
+          <h3 class="text-white font-sync text-sm font-bold">45-Kill Unbeaten Win Streak</h3>
+          <p class="text-slate-300 leading-relaxed">
+            Dominating high-tier movement in Rivals PvP with sniper-shotgun quick-swap combos and high-ground grapple cancels. Cleared multi-squad lobbies back-to-back with zero deaths, establishing Team Eternity's cross-game mechanical dominance.
+          </p>
+          <div class="text-[11px] text-amberGold pt-1 flex items-center justify-between">
+            <span>Result: Server Dominance</span>
+            <span class="text-slate-500">Win Rate: 98%</span>
+          </div>
+        </div>
+
+        <!-- Story 4: Blox Fruits 30M Bounty Raid -->
+        <div class="p-5 rounded-xl bg-voidDark/80 border border-white/10 hover:border-amberGold transition space-y-2.5">
+          <div class="flex items-center justify-between text-slate-400 border-b border-white/5 pb-2">
+            <span class="text-amberGold font-bold"><i class="fa-solid fa-skull mr-1.5"></i>OPERATION: SEA 3 BOUNTY HUNT</span>
+            <span class="text-slate-500">MAX BOUNTY TIER</span>
+          </div>
+          <h3 class="text-white font-sync text-sm font-bold">Awakened Dough &amp; Cursed Katana Combo</h3>
+          <p class="text-slate-300 leading-relaxed">
+            Executing frame-perfect one-shot combo chains: Soul Guitar stun into Cursed Dual Katana Slayer Blades, followed by Godhuman sixth-realm palm strike. Countless top bounty hunters dismantled in open sea territory without taking critical damage.
+          </p>
+          <div class="text-[11px] text-neonCrimson pt-1 flex items-center justify-between">
+            <span>Result: 30M Max Bounty Secured</span>
+            <span class="text-slate-500">Status: Undefeated</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 04: DUAL-ENGINE WEAPON WORKBENCH (CODM & ROBLOX) -->
+    <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-white/10 space-y-6">
+      
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4 font-mono text-xs">
         <div>
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-plasmaCyan animate-ping"></span>
-            <span class="text-plasmaCyan font-bold uppercase tracking-widest">SPEC-OPS ARSENAL BENCH</span>
+            <span class="text-plasmaCyan font-bold uppercase tracking-widest">TACTICAL ARSENAL &bull; DUAL ENGINE</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-sync font-black text-white mt-1 uppercase">
-            DL Q33 &bull; FAST-SCOPE SCRIM SPEC
+          <h2 class="text-2xl sm:text-3xl font-sync font-bold text-white uppercase mt-1">
+            CODM DL Q33 &amp; ROBLOX CLUTCH BUILDS
           </h2>
         </div>
-        
-        <div class="flex items-center gap-3">
-          <button onclick="testFireSniperSound()" class="px-4 py-2.5 rounded-lg bg-neonCrimson hover:bg-red-600 text-white font-sync text-xs font-bold transition flex items-center gap-2 shadow-crimsonGlow">
-            <i class="fa-solid fa-crosshairs"></i> TEST FIRE DL Q33
+
+        <!-- Dual Engine Tab Switcher -->
+        <div class="flex rounded-lg bg-voidDark p-1 border border-white/15">
+          <button id="tabCodmBtn" onclick="switchWeaponTab('codm')" class="px-4 py-1.5 rounded-md bg-neonCrimson text-white font-bold text-xs transition">
+            CODM // DL Q33
+          </button>
+          <button id="tabRobloxBtn" onclick="switchWeaponTab('roblox')" class="px-4 py-1.5 rounded-md text-slate-400 hover:text-white font-bold text-xs transition">
+            ROBLOX // BOUNTY
           </button>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-6 items-center">
-        <!-- Weapon Attachments Details -->
+      <!-- Tab 1: CODM DL Q33 Setup -->
+      <div id="codmWorkbench" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-5 space-y-3 font-mono text-xs">
           <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
             <div>
@@ -633,7 +554,6 @@
           </div>
         </div>
 
-        <!-- Telemetry Progress Bars -->
         <div class="lg:col-span-7 space-y-4">
           <div>
             <div class="flex justify-between text-xs font-mono text-slate-300 mb-1.5">
@@ -641,7 +561,7 @@
               <span class="text-plasmaCyan font-bold">310ms (FAST-FLICK ENTRY META)</span>
             </div>
             <div class="w-full bg-voidDark h-3 rounded-full overflow-hidden border border-white/10">
-              <div class="bg-plasmaCyan h-full w-[94%] transition-all duration-1000"></div>
+              <div class="bg-plasmaCyan h-full w-[94%]"></div>
             </div>
           </div>
 
@@ -651,31 +571,238 @@
               <span class="text-neonCrimson font-bold">INFINITE RANGE (UPPER CHEST &amp; HEAD)</span>
             </div>
             <div class="w-full bg-voidDark h-3 rounded-full overflow-hidden border border-white/10">
-              <div class="bg-neonCrimson h-full w-[98%] transition-all duration-1000"></div>
+              <div class="bg-neonCrimson h-full w-[98%]"></div>
+            </div>
+          </div>
+
+          <div class="pt-2 flex gap-3">
+            <button onclick="testFireSniperSound()" class="px-5 py-2.5 rounded-lg bg-neonCrimson hover:bg-red-600 text-white font-sync text-xs font-bold transition flex items-center gap-2 shadow-crimsonGlow">
+              <i class="fa-solid fa-crosshairs"></i> TEST FIRE DL Q33
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Roblox Blox Fruits & Rivals Setup (Hidden by Default) -->
+      <div id="robloxWorkbench" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-5 space-y-3 font-mono text-xs">
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-slate-500 block text-[10px] uppercase">PRIMARY MELEE</span>
+              <span class="text-white font-bold">Godhuman (Sixth Realm Palm Strike)</span>
+            </div>
+            <i class="fa-solid fa-hand-fist text-electricViolet"></i>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-slate-500 block text-[10px] uppercase">MYTHICAL SWORD</span>
+              <span class="text-white font-bold">Cursed Dual Katana (Slayer Blades)</span>
+            </div>
+            <i class="fa-solid fa-khanda text-neonCrimson"></i>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-slate-500 block text-[10px] uppercase">GUN ARTIFACT</span>
+              <span class="text-white font-bold">Soul Guitar (El Diablo Nightmare Stun)</span>
+            </div>
+            <i class="fa-solid fa-guitar text-plasmaCyan"></i>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex justify-between items-center">
+            <div>
+              <span class="text-slate-500 block text-[10px] uppercase">DEVIL FRUIT</span>
+              <span class="text-white font-bold">Awakened Dough / Portal Combo</span>
+            </div>
+            <i class="fa-solid fa-shield-virus text-amberGold"></i>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-4">
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-300 mb-1.5">
+              <span>ONE-SHOT COMBO RELIABILITY</span>
+              <span class="text-electricViolet font-bold">99.1% (TRUE COMBO STUN LOCK)</span>
+            </div>
+            <div class="w-full bg-voidDark h-3 rounded-full overflow-hidden border border-white/10">
+              <div class="bg-electricViolet h-full w-[99%]"></div>
             </div>
           </div>
 
           <div>
             <div class="flex justify-between text-xs font-mono text-slate-300 mb-1.5">
-              <span>SPRINT-TO-FIRE LATENCY REDUCTION</span>
-              <span class="text-electricViolet font-bold">OPTIMIZED MAXIMUM (-18%)</span>
+              <span>MOBILITY &amp; ESCAPE DISPLACEMENT</span>
+              <span class="text-plasmaCyan font-bold">MAX TIER (PORTAL DIMENSION WARP)</span>
             </div>
             <div class="w-full bg-voidDark h-3 rounded-full overflow-hidden border border-white/10">
-              <div class="bg-electricViolet h-full w-[90%] transition-all duration-1000"></div>
+              <div class="bg-plasmaCyan h-full w-[95%]"></div>
             </div>
           </div>
 
           <div class="p-4 rounded-xl bg-deckSurface/60 border border-white/10 font-mono text-xs text-slate-400 flex items-start gap-3">
-            <i class="fa-solid fa-circle-info text-holoGreen text-base mt-0.5"></i>
+            <i class="fa-solid fa-circle-check text-holoGreen text-base mt-0.5"></i>
             <span>
-              Configured specifically for Tal iban’s aggressive search-and-destroy entry picks, rapid wall-bang sweeps, and quick target acquisitions against top Asian teams.
+              Configured for Tal iban's unstoppable bounty hunting raids across Sea 3 and flawless tournament records in Roblox Rivals.
             </span>
           </div>
         </div>
       </div>
+
     </section>
 
-    <!-- CLASSIFIED HOLOGRAPHIC ARCHIVES (All 7 Ghost Images Integrated) -->
+    <!-- SECTION 05: INTERACTIVE YOUTUBE THEATER (@Fl1ckCod) -->
+    <section class="glass-deck rounded-2xl p-6 sm:p-8 border border-neonCrimson/40 relative overflow-hidden shadow-crimsonGlow">
+      <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
+            <span class="text-xs font-mono text-neonCrimson font-bold uppercase tracking-widest">
+              OFFICIAL BROADCAST &bull; YOUTUBE HIGHLIGHTS
+            </span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-sync font-black text-white uppercase tracking-tight mt-1">
+            YOUTUBE CHANNEL // <span class="text-red-500">@Fl1ckCod</span>
+          </h2>
+        </div>
+
+        <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-sync text-xs font-bold transition flex items-center gap-2 shadow-lg hover:shadow-red-600/50">
+          <i class="fa-brands fa-youtube text-lg"></i> SUBSCRIBE TO @Fl1ckCod
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6 items-stretch">
+        
+        <!-- Interactive Theater Screen -->
+        <div class="lg:col-span-7 bg-black/90 rounded-xl overflow-hidden border border-white/15 relative group aspect-video flex flex-col justify-between p-6">
+          <div class="absolute inset-0 bg-gradient-to-tr from-black/95 via-black/40 to-transparent pointer-events-none"></div>
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neonCrimson/25 via-transparent to-transparent opacity-60"></div>
+
+          <div class="relative z-10 flex justify-between items-start">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/90 text-white font-mono text-[10px] uppercase font-bold tracking-wider">
+              <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> <span id="theaterTag">HIGHLIGHT REEL</span>
+            </div>
+            <span class="font-mono text-xs text-slate-400">1080p 60FPS</span>
+          </div>
+
+          <div class="relative z-10 my-auto text-center space-y-3">
+            <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="w-16 h-16 rounded-full bg-red-600/90 hover:bg-red-600 text-white inline-flex items-center justify-center text-2xl transition transform hover:scale-110 shadow-crimsonGlow mx-auto">
+              <i class="fa-solid fa-play ml-1"></i>
+            </a>
+            <h3 id="theaterTitle" class="text-lg sm:text-xl font-sync font-bold text-white uppercase tracking-wider">
+              DOESNTFLICKANYMORE // FAST-SCOPE VOL. 1
+            </h3>
+            <p id="theaterDesc" class="font-mono text-xs text-slate-300 max-w-md mx-auto">
+              Asia S&amp;D Tournament Round Clutches, Wall-Bang Snipes &amp; DL Q33 Quick-Scope Sequences.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex justify-between items-center font-mono text-xs text-slate-400 border-t border-white/10 pt-3">
+            <span>TEAM ETERNITY OFFICIAL CONTENT</span>
+            <a href="https://www.youtube.com/@Fl1ckCod" target="_blank" rel="noopener noreferrer" class="text-plasmaCyan hover:underline flex items-center gap-1">
+              <span>WATCH ON YOUTUBE</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Video Selectors & Channel Dossier -->
+        <div class="lg:col-span-5 space-y-3 font-mono text-xs flex flex-col justify-between">
+          <div class="space-y-2">
+            <span class="text-slate-500 uppercase text-[10px] tracking-wider block">FEATURED REELS // CLICK TO PREVIEW:</span>
+            
+            <button onclick="selectVideoClip(0)" class="w-full text-left p-3.5 rounded-xl bg-voidDark/80 border border-white/10 hover:border-red-500 transition group flex items-start gap-3">
+              <i class="fa-solid fa-play text-red-500 text-sm mt-0.5 group-hover:scale-125 transition"></i>
+              <div>
+                <span class="text-white font-bold block">1v5 S&amp;D Tournament Ace</span>
+                <span class="text-[11px] text-slate-400">DL Q33 Standoff Bomb Defense &bull; 60FPS</span>
+              </div>
+            </button>
+
+            <button onclick="selectVideoClip(1)" class="w-full text-left p-3.5 rounded-xl bg-voidDark/80 border border-white/10 hover:border-plasmaCyan transition group flex items-start gap-3">
+              <i class="fa-solid fa-play text-plasmaCyan text-sm mt-0.5 group-hover:scale-125 transition"></i>
+              <div>
+                <span class="text-white font-bold block">Wall-Bang Angle Masterclass</span>
+                <span class="text-[11px] text-slate-400">Crash, Coastal &amp; Firing Range Pre-aims</span>
+              </div>
+            </button>
+
+            <button onclick="selectVideoClip(2)" class="w-full text-left p-3.5 rounded-xl bg-voidDark/80 border border-white/10 hover:border-electricViolet transition group flex items-start gap-3">
+              <i class="fa-solid fa-play text-electricViolet text-sm mt-0.5 group-hover:scale-125 transition"></i>
+              <div>
+                <span class="text-white font-bold block">Roblox Rivals 45-Streak Sweep</span>
+                <span class="text-[11px] text-slate-400">High-movement sniper flick mechanics</span>
+              </div>
+            </button>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-voidDark/80 border border-white/10 flex items-center justify-between mt-2">
+            <div>
+              <span class="text-[10px] text-slate-500 block uppercase">CHANNEL HANDLE</span>
+              <span class="text-white font-bold text-sm">@Fl1ckCod</span>
+            </div>
+            <button onclick="copyData('https://www.youtube.com/@Fl1ckCod', 'YOUTUBE LINK COPIED')" class="px-3 py-1.5 rounded bg-white/5 hover:bg-white/10 border border-white/15 text-slate-300 hover:text-white transition">
+              <i class="fa-regular fa-copy mr-1"></i> COPY LINK
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 06: QUICK-SCOPE SNIPER AIM LAB REFLEX TRAINER -->
+    <section class="glass-deck rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-plasmaCyan/50 shadow-cyanGlow flex flex-col justify-between clip-corner">
+      
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div>
+          <span class="text-[10px] font-mono text-plasmaCyan font-bold tracking-widest block uppercase">TACTICAL RECON DRILL</span>
+          <h2 class="text-xl sm:text-2xl font-sync font-bold text-white uppercase">SNIPER AIM LAB // REFLEX CALIBRATION</h2>
+        </div>
+        <div class="font-mono text-xs text-right">
+          <span class="text-slate-400 block">SCORE: <span id="gameScore" class="text-neonCrimson font-bold text-lg">0</span></span>
+          <span class="text-slate-500 text-[10px]">TIME LEFT: <span id="gameTimer" class="text-plasmaCyan font-bold">15.0s</span></span>
+        </div>
+      </div>
+
+      <!-- Aim Lab Interactive Arena -->
+      <div class="relative my-4 flex-grow min-h-[320px] rounded-xl border border-white/10 bg-black/90 overflow-hidden select-none cursor-crosshair" id="aimBox">
+        
+        <!-- Background Grid inside Arena -->
+        <div class="absolute inset-0 bg-[radial-gradient(#00f0ff15_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+
+        <!-- Radar Scanner Lines -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border border-plasmaCyan/15 pointer-events-none">
+          <div class="w-full h-full rounded-full border-t-2 border-plasmaCyan/40 radar-sweep"></div>
+        </div>
+
+        <div id="gameOverlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 text-center bg-black/85 backdrop-blur-sm">
+          <i class="fa-solid fa-crosshairs text-4xl text-neonCrimson mb-3 animate-pulse"></i>
+          <h3 class="text-lg font-sync font-bold text-white uppercase">FLICK &amp; REACTION CALIBRATION</h3>
+          <p class="font-mono text-xs text-slate-400 max-w-sm mt-1 mb-5">
+            Calibrate your reaction speed with DL Q33 fast-aim timing tuned for Team Eternity competitive scrims.
+          </p>
+          <button onclick="startAimGame()" class="px-7 py-3 rounded-lg bg-neonCrimson hover:bg-red-600 text-white font-sync text-xs font-bold tracking-wider transition transform hover:scale-105 shadow-crimsonGlow flex items-center gap-2">
+            <i class="fa-solid fa-play"></i> ENGAGE SNIPER DRILL
+          </button>
+        </div>
+
+        <!-- Target Marker with Ripple Animation -->
+        <div id="targetMarker" onclick="hitTarget(event)" class="absolute hidden w-12 h-12 -ml-6 -mt-6 rounded-full border-2 border-plasmaCyan bg-neonCrimson/40 cursor-crosshair flex items-center justify-center transition-all duration-75 shadow-cyanGlow">
+          <div class="w-3 h-3 rounded-full bg-white animate-ping"></div>
+        </div>
+      </div>
+
+      <div class="pt-2 font-mono text-xs text-slate-400 flex flex-wrap justify-between items-center gap-2 border-t border-white/10">
+        <span class="flex items-center gap-1.5">
+          <i class="fa-solid fa-bolt text-holoGreen"></i>
+          <span>DL Q33 / LOCUS TUNED (310ms ADS)</span>
+        </span>
+        <span class="text-slate-500">HIT TARGETS &bull; SCORE +100 PTS</span>
+      </div>
+
+    </section>
+
+    <!-- SECTION 07: CLASSIFIED HOLOGRAPHIC ARCHIVES (All 7 Ghost Images Integrated) -->
     <section class="glass-deck rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-white/10">
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
         <div>
@@ -769,7 +896,7 @@
       </div>
     </section>
 
-    <!-- COMMS & SQUAD FREQUENCY HUB -->
+    <!-- SECTION 08: COMMS & SQUAD FREQUENCY HUB -->
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       
       <!-- YouTube Channel Direct Card -->
@@ -868,7 +995,7 @@
       }
     }
 
-    // Custom HUD Notification Toast
+    // HUD Notification Toast
     function triggerToast(message) {
       const toast = document.getElementById('hudToast');
       const msg = document.getElementById('toastMsg');
@@ -902,6 +1029,133 @@
 
     function closeLightbox() {
       document.getElementById('lightboxModal').classList.add('hidden');
+    }
+
+    // ==========================================
+    // CYBER TACTICAL CLI TERMINAL ENGINE
+    // ==========================================
+    const terminalLogs = {
+      help: `AVAILABLE COMMANDS:
+- <strong class="text-plasmaCyan">lore</strong>: The tactical philosophy behind "Doesntflickanymore"
+- <strong class="text-plasmaCyan">scrims</strong>: Top tournament clutch accounts in Asia S&D
+- <strong class="text-plasmaCyan">loadout</strong>: DL Q33 attachment tuning and ADS stats
+- <strong class="text-plasmaCyan">roblox</strong>: Blox Fruits & Rivals setup details
+- <strong class="text-plasmaCyan">clear</strong>: Clear terminal buffer`,
+      
+      lore: `<strong class="text-neonCrimson">[OPERATIONAL LORE]</strong>
+The name <strong class="text-white">"Doesntflickanymore"</strong> was forged in Asian competitive S&D scrims.
+Instead of relying on random flicking, Tal iban mastered precise crosshair positioning and predictive wall angles. By pre-aiming the exact millimeter of player emergence, enemies run directly into the crosshairs.`,
+
+      scrims: `<strong class="text-holoGreen">[SCRIM TELEMETRY]</strong>
+- Standoff B-Site 1v4 Bomb Defusal (CODM Championship)
+- Crash 3-Story Skyline Wallbang Suppression
+- 94.2% S&D Conversion Efficiency in Asia Pro Lobbies
+- 10,000+ Rank XP Milestone (Top 0.2% Global)`,
+
+      loadout: `<strong class="text-amberGold">[DL Q33 SPEC-OPS SPEC]</strong>
+- Barrel: MIP Light (.08s Scoping Reduction)
+- Stock: YKM Combat Stock (Max Agility)
+- Laser: OWC Tactical
+- Perk: Sleight of Hand
+- ADS Time: 310ms Fast-Flick Entry`,
+
+      roblox: `<strong class="text-electricViolet">[ROBLOX TOURNAMENT LOADOUT]</strong>
+- Melee: Godhuman (Palm Strike Combo)
+- Sword: Cursed Dual Katana (Slayer Blades)
+- Gun: Soul Guitar (El Diablo Stun)
+- Fruit: Awakened Dough / Portal Combo
+- Rivals PvP: 45-Streak Server Dominance`
+    };
+
+    function handleTerminalCommand(e) {
+      e.preventDefault();
+      const input = document.getElementById('terminalInput');
+      const screen = document.getElementById('terminalScreen');
+      const cmd = input.value.trim().toLowerCase();
+      if (!cmd) return;
+
+      playTone(700, 0.05, 'sine');
+      appendTerminalLine(`&gt; ${cmd}`, 'text-plasmaCyan font-bold');
+
+      if (cmd === 'clear') {
+        screen.innerHTML = '<div class="text-slate-500">Terminal buffer cleared. Ready for input...</div>';
+      } else if (terminalLogs[cmd]) {
+        appendTerminalLine(terminalLogs[cmd], 'text-slate-300');
+      } else {
+        appendTerminalLine(`Command not recognized: '${cmd}'. Type <strong class="text-plasmaCyan">help</strong> for available commands.`, 'text-red-400');
+      }
+
+      input.value = '';
+      screen.scrollTop = screen.scrollHeight;
+    }
+
+    function runQuickCmd(cmd) {
+      const input = document.getElementById('terminalInput');
+      input.value = cmd;
+      handleTerminalCommand(new Event('submit'));
+    }
+
+    function appendTerminalLine(text, cssClass = '') {
+      const screen = document.getElementById('terminalScreen');
+      const div = document.createElement('div');
+      div.className = cssClass;
+      div.innerHTML = text;
+      screen.appendChild(div);
+      screen.scrollTop = screen.scrollHeight;
+    }
+
+    // ==========================================
+    // DUAL-ENGINE TAB SWITCHER
+    // ==========================================
+    function switchWeaponTab(tab) {
+      const codm = document.getElementById('codmWorkbench');
+      const roblox = document.getElementById('robloxWorkbench');
+      const btnCodm = document.getElementById('tabCodmBtn');
+      const btnRoblox = document.getElementById('tabRobloxBtn');
+
+      if (tab === 'codm') {
+        codm.classList.remove('hidden');
+        roblox.classList.add('hidden');
+        btnCodm.className = "px-4 py-1.5 rounded-md bg-neonCrimson text-white font-bold text-xs transition";
+        btnRoblox.className = "px-4 py-1.5 rounded-md text-slate-400 hover:text-white font-bold text-xs transition";
+        playTone(600, 0.08, 'sine');
+      } else {
+        codm.classList.add('hidden');
+        roblox.classList.remove('hidden');
+        btnRoblox.className = "px-4 py-1.5 rounded-md bg-electricViolet text-white font-bold text-xs transition";
+        btnCodm.className = "px-4 py-1.5 rounded-md text-slate-400 hover:text-white font-bold text-xs transition";
+        playTone(800, 0.08, 'triangle');
+      }
+    }
+
+    // ==========================================
+    // YOUTUBE THEATER SELECTOR
+    // ==========================================
+    const videoReels = [
+      {
+        tag: "1v5 S&D ACE",
+        title: "DOESNTFLICKANYMORE // FAST-SCOPE VOL. 1",
+        desc: "Asia S&D Tournament Round Clutches, Wall-Bang Snipes & DL Q33 Quick-Scope Sequences."
+      },
+      {
+        tag: "WALLBANG INTEL",
+        title: "PREDICTIVE ANGLE MASTERCLASS // CRASH & STANDOFF",
+        desc: "Precision bullet penetration spots and pre-fire crosshair setups against top tournament squads."
+      },
+      {
+        tag: "ROBLOX RIVALS",
+        title: "ROBLOX RIVALS // 45 UNBEATEN WIN STREAK",
+        desc: "Sniper-shotgun quick-swap mechanics and high-movement grapple cancel gameplay."
+      }
+    ];
+
+    function selectVideoClip(index) {
+      const reel = videoReels[index];
+      document.getElementById('theaterTag').textContent = reel.tag;
+      document.getElementById('theaterTitle').textContent = reel.title;
+      document.getElementById('theaterDesc').textContent = reel.desc;
+      playTone(750, 0.08, 'sine');
+      triggerToast("THEATER PREVIEW UPDATED");
     }
 
     // ==========================================
@@ -972,15 +1226,14 @@
     let currentPresetIndex = 0;
 
     const synthPresets = [
-      { name: "CHILL BINAURAL", freqs: [130.81, 155.56, 196.00, 233.08] }, // C minor 7
-      { name: "DEEP VOID", freqs: [110.00, 164.81, 220.00, 293.66] },      // A minor 9
-      { name: "NEON SUNSET", freqs: [146.83, 185.00, 220.00, 277.18] }     // D major 7
+      { name: "CHILL BINAURAL", freqs: [130.81, 155.56, 196.00, 233.08] },
+      { name: "DEEP VOID", freqs: [110.00, 164.81, 220.00, 293.66] },
+      { name: "NEON SUNSET", freqs: [146.83, 185.00, 220.00, 277.18] }
     ];
 
     function toggleAmbientAudio() {
       const btnLabel = document.getElementById('ambientLabel');
       const eqBars = document.getElementById('eqBars');
-      const ctx = getAudioContext();
 
       if (!ambientActive) {
         ambientActive = true;
@@ -1208,7 +1461,6 @@
       }
     }
 
-    // Tactical Mouse Tracking Reticle & Gravity
     const crosshair = document.getElementById('tacticalCrosshair');
     const coordsEl = document.getElementById('mouseCoords');
 
@@ -1250,7 +1502,6 @@
       for (let i = 0; i < particles.length; i++) {
         let p = particles[i];
 
-        // Mouse Repulsion Field
         let dx = p.x - mouse.x;
         let dy = p.y - mouse.y;
         let distMouse = Math.hypot(dx, dy);
@@ -1275,7 +1526,6 @@
         bgCtx.fill();
         bgCtx.shadowBlur = 0;
 
-        // Connect neighboring points
         for (let j = i + 1; j < particles.length; j++) {
           let p2 = particles[j];
           let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
